@@ -1,0 +1,176 @@
+{
+ "summary": {
+  "inst": "tpch",
+  "n_tables": 8,
+  "n_cand": 35,
+  "n_verified": 11,
+  "n_verified_gold": 10,
+  "rev_expanding": 10,
+  "rev_max": 6161,
+  "rev_avg_max": 6000.0,
+  "rev_top": [
+   [
+    "customer.c_nationkey->nation.n_nationkey",
+    6161,
+    6000.0
+   ],
+   [
+    "lineitem.l_suppkey->supplier.s_suppkey",
+    694,
+    600.1
+   ],
+   [
+    "supplier.s_nationkey->nation.n_nationkey",
+    438,
+    400.0
+   ],
+   [
+    "partsupp.ps_suppkey->supplier.s_suppkey",
+    80,
+    80.0
+   ],
+   [
+    "lineitem.l_partkey->part.p_partkey",
+    57,
+    30.0
+   ]
+  ],
+  "pairs_und_h2": 42,
+  "amb_und_h2": 8,
+  "fanonly_und_h2": 25,
+  "pairs_dir_h2": 17,
+  "amb_dir_h2": 0,
+  "pairs_und_h3": 54,
+  "amb_und_h3": 18,
+  "fanonly_und_h3": 34,
+  "pairs_dir_h3": 20,
+  "amb_dir_h3": 0,
+  "dir_amb_pairs": 0,
+  "dir_amb_role": 0,
+  "dir_amb_route": 0,
+  "n_probes": 0,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 0,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 0,
+  "probe_secs": 0.0,
+  "n_queries": 66,
+  "n_answerable": 61,
+  "bfs3_n": 66,
+  "bfs3_ambiguous": 27,
+  "bfs3_answered": 66,
+  "bfs3_fanout": 5,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 61,
+  "prod2_n": 66,
+  "prod2_ambiguous": 0,
+  "prod2_answered": 35,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 35,
+  "prod2_unreach": 27,
+  "prod2_refused_fanout": 4,
+  "prod3_n": 66,
+  "prod3_ambiguous": 27,
+  "prod3_answered": 35,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 35,
+  "prod3_refused_amb": 27,
+  "prod3_refused_fanout": 4,
+  "prodc2_n": 66,
+  "prodc2_answered": 35,
+  "prodc2_tied_silent": 0,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 35,
+  "prodc2_correct_untied": 35,
+  "prodc2_unreach": 31,
+  "prodc3_n": 66,
+  "prodc3_answered": 61,
+  "prodc3_tied_silent": 26,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 61,
+  "prodc3_correct_untied": 35,
+  "prodc3_unreach": 5,
+  "steiner_n": 66,
+  "steiner_answered": 61,
+  "steiner_nongold": 0,
+  "steiner_correct": 61,
+  "steiner_unreach": 5,
+  "multi_queries": 47,
+  "hops_steiner": 155,
+  "hops_union": 161,
+  "full_scan": 8661245
+ },
+ "probes": [],
+ "rev": {
+  "nation.n_regionkey->region.r_regionkey": {
+   "ndv": 5,
+   "rows": 25,
+   "max": 5,
+   "avg": 5.0
+  },
+  "supplier.s_nationkey->nation.n_nationkey": {
+   "ndv": 25,
+   "rows": 10000,
+   "max": 438,
+   "avg": 400.0
+  },
+  "customer.c_nationkey->nation.n_nationkey": {
+   "ndv": 25,
+   "rows": 150000,
+   "max": 6161,
+   "avg": 6000.0
+  },
+  "partsupp.ps_partkey->part.p_partkey": {
+   "ndv": 200000,
+   "rows": 800000,
+   "max": 4,
+   "avg": 4.0
+  },
+  "partsupp.ps_suppkey->supplier.s_suppkey": {
+   "ndv": 10000,
+   "rows": 800000,
+   "max": 80,
+   "avg": 80.0
+  },
+  "orders.o_custkey->customer.c_custkey": {
+   "ndv": 99996,
+   "rows": 1500000,
+   "max": 41,
+   "avg": 15.00060002400096
+  },
+  "lineitem.l_orderkey->orders.o_orderkey": {
+   "ndv": 1500000,
+   "rows": 6001215,
+   "max": 7,
+   "avg": 4.00081
+  },
+  "lineitem.l_partkey->part.p_partkey": {
+   "ndv": 200000,
+   "rows": 6001215,
+   "max": 57,
+   "avg": 30.006075
+  },
+  "lineitem.l_suppkey->supplier.s_suppkey": {
+   "ndv": 10000,
+   "rows": 6001215,
+   "max": 694,
+   "avg": 600.1215
+  },
+  "lineitem.l_partkey+l_suppkey->partsupp.ps_partkey+ps_suppkey": {
+   "ndv": 799541,
+   "rows": 6001215,
+   "max": 24,
+   "avg": 7.505825217218379
+  },
+  "region.r_regionkey->nation.n_nationkey": {
+   "ndv": 5,
+   "rows": 5,
+   "max": 1,
+   "avg": 1.0
+  }
+ }
+}

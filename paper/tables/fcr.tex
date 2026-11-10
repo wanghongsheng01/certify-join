@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data. --: not run on this family.}
+\label{tab:fcr}
+\small
+\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Method & TPC-H & TPC-H$^d$ & TPC-DS & TPC-DS$^d$ & JOB & BIRD \\
+\midrule
+DDL & 0.0 & 90.2 & 1.6 & 48.0 & 2.6 & 23.0 \\
+LLM: DeepSeek & 0.0 & 90.2 & 2.8 & 48.2 & 2.5 & 22.8 \\
+LLM: GLM & 0.0 & 90.2 & 21.8 & 58.4 & 3.6 & 29.9 \\
+LLM: Kimi & 0.0 & 90.2 & 21.8 & 58.4 & 6.0 & 26.2 \\
+CardEst & 0.0 & 20.0 & 11.2 & 38.6 & 24.0 & 8.5 \\
+Auto-BI & 0.0 & 89.6 & 0.0 & 31.5 & -- & 32.3 \\
+HoPF & 0.0 & 0.0 & 0.0 & 0.0 & -- & 0.0 \\
+SJI & 0.0 & 93.8 & 0.0 & 35.5 & -- & 23.2 \\
+\midrule
+\sys & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\sysS & 0.0 & 0.0 & 0.0 & 2.2 & 2.4 & 1.6 \\
+\bottomrule
+\end{tabular}
+\end{table}

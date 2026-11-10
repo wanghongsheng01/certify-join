@@ -1,0 +1,127 @@
+inst,method,cost,cost_frac,n_queries,n_answerable,n_certified,coverage,fcr_card,fcr_sem,n_card,n_sem,n_ok,n_card_eps
+bird_california_schools,DDL-declared,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_california_schools,LLM-judge:ds-flash,0,0.0,2,1,0,0.0,0.0,0.0,0,0,0,0
+bird_california_schools,LLM-judge:glm,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_california_schools,LLM-judge:kimi,0,0.0,2,1,2,0.0,1.0,0.0,2,0,0,2
+bird_california_schools,LLM-judge:vote,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_california_schools,CardEst(HLL stats),0,0.0,2,1,2,0.0,1.0,0.0,2,0,0,2
+bird_california_schools,Auto-BI-style(reimpl.),0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_card_games,DDL-declared,0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,LLM-judge:ds-flash,0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,LLM-judge:glm,0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,LLM-judge:kimi,0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,LLM-judge:vote,0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,CardEst(HLL stats),0,0.0,4,2,4,1.0,0.5,0.0,2,0,2,0
+bird_card_games,Auto-BI-style(reimpl.),0,0.0,4,2,4,0.5,0.75,0.0,3,0,1,0
+bird_codebase_community,DDL-declared,0,0.0,22,7,17,1.0,0.5882352941176471,0.0,10,0,7,3
+bird_codebase_community,LLM-judge:ds-flash,0,0.0,22,7,17,1.0,0.5882352941176471,0.0,10,0,7,3
+bird_codebase_community,LLM-judge:glm,0,0.0,22,7,18,1.0,0.6111111111111112,0.0,11,0,7,4
+bird_codebase_community,LLM-judge:kimi,0,0.0,22,7,17,1.0,0.5882352941176471,0.0,10,0,7,3
+bird_codebase_community,LLM-judge:vote,0,0.0,22,7,17,1.0,0.5882352941176471,0.0,10,0,7,3
+bird_codebase_community,CardEst(HLL stats),0,0.0,22,7,18,0.14285714285714285,0.9444444444444444,0.0,17,0,1,14
+bird_codebase_community,Auto-BI-style(reimpl.),0,0.0,22,7,22,0.5714285714285714,0.8181818181818182,0.0,18,0,4,17
+bird_debit_card_specializing,DDL-declared,0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_debit_card_specializing,LLM-judge:ds-flash,0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_debit_card_specializing,LLM-judge:glm,0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_debit_card_specializing,LLM-judge:kimi,0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_debit_card_specializing,LLM-judge:vote,0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_debit_card_specializing,CardEst(HLL stats),0,0.0,1,1,0,0.0,0.0,0.0,0,0,0,0
+bird_debit_card_specializing,Auto-BI-style(reimpl.),0,0.0,1,1,1,1.0,0.0,0.0,0,0,1,0
+bird_european_football_2,DDL-declared,0,0.0,7,6,6,1.0,0.0,0.0,0,0,6,0
+bird_european_football_2,LLM-judge:ds-flash,0,0.0,7,6,6,1.0,0.0,0.0,0,0,6,0
+bird_european_football_2,LLM-judge:glm,0,0.0,7,6,7,1.0,0.14285714285714285,0.0,1,0,6,1
+bird_european_football_2,LLM-judge:kimi,0,0.0,7,6,7,1.0,0.14285714285714285,0.0,1,0,6,1
+bird_european_football_2,LLM-judge:vote,0,0.0,7,6,7,1.0,0.14285714285714285,0.0,1,0,6,1
+bird_european_football_2,CardEst(HLL stats),0,0.0,7,6,6,1.0,0.0,0.0,0,0,6,0
+bird_european_football_2,Auto-BI-style(reimpl.),0,0.0,7,6,7,0.3333333333333333,0.5714285714285714,0.14285714285714285,4,1,2,4
+bird_financial,DDL-declared,0,0.0,40,32,32,1.0,0.0,0.0,0,0,32,0
+bird_financial,LLM-judge:ds-flash,0,0.0,40,32,32,1.0,0.0,0.0,0,0,32,0
+bird_financial,LLM-judge:glm,0,0.0,40,32,33,1.0,0.030303030303030304,0.0,1,0,32,1
+bird_financial,LLM-judge:kimi,0,0.0,40,32,33,1.0,0.030303030303030304,0.0,1,0,32,1
+bird_financial,LLM-judge:vote,0,0.0,40,32,33,1.0,0.030303030303030304,0.0,1,0,32,1
+bird_financial,CardEst(HLL stats),0,0.0,40,32,34,1.0,0.058823529411764705,0.0,2,0,32,2
+bird_financial,Auto-BI-style(reimpl.),0,0.0,40,32,40,0.0625,0.95,0.0,38,0,2,38
+bird_formula_1,DDL-declared,0,0.0,171,74,138,1.0,0.463768115942029,0.0,64,0,74,64
+bird_formula_1,LLM-judge:ds-flash,0,0.0,171,74,138,1.0,0.463768115942029,0.0,64,0,74,64
+bird_formula_1,LLM-judge:glm,0,0.0,171,74,171,1.0,0.5672514619883041,0.0,97,0,74,97
+bird_formula_1,LLM-judge:kimi,0,0.0,171,74,151,1.0,0.5099337748344371,0.0,77,0,74,77
+bird_formula_1,LLM-judge:vote,0,0.0,171,74,151,1.0,0.5099337748344371,0.0,77,0,74,77
+bird_formula_1,CardEst(HLL stats),0,0.0,171,74,67,0.9054054054054054,0.0,0.0,0,0,67,0
+bird_formula_1,Auto-BI-style(reimpl.),0,0.0,171,74,171,0.21621621621621623,0.9005847953216374,0.005847953216374269,154,1,16,154
+bird_student_club,DDL-declared,0,0.0,58,50,50,1.0,0.0,0.0,0,0,50,0
+bird_student_club,LLM-judge:ds-flash,0,0.0,58,50,50,1.0,0.0,0.0,0,0,50,0
+bird_student_club,LLM-judge:glm,0,0.0,58,50,50,1.0,0.0,0.0,0,0,50,0
+bird_student_club,LLM-judge:kimi,0,0.0,58,50,50,1.0,0.0,0.0,0,0,50,0
+bird_student_club,LLM-judge:vote,0,0.0,58,50,50,1.0,0.0,0.0,0,0,50,0
+bird_student_club,CardEst(HLL stats),0,0.0,58,50,51,1.0,0.0196078431372549,0.0,1,0,50,1
+bird_student_club,Auto-BI-style(reimpl.),0,0.0,58,50,58,0.2,0.8275862068965517,0.0,48,0,10,48
+bird_superhero,DDL-declared,0,0.0,107,105,105,1.0,0.0,0.0,0,0,105,0
+bird_superhero,LLM-judge:ds-flash,0,0.0,107,105,105,1.0,0.0,0.0,0,0,105,0
+bird_superhero,LLM-judge:glm,0,0.0,107,105,105,1.0,0.0,0.0,0,0,105,0
+bird_superhero,LLM-judge:kimi,0,0.0,107,105,105,1.0,0.0,0.0,0,0,105,0
+bird_superhero,LLM-judge:vote,0,0.0,107,105,105,1.0,0.0,0.0,0,0,105,0
+bird_superhero,CardEst(HLL stats),0,0.0,107,105,97,0.9047619047619048,0.0,0.020618556701030927,0,2,95,0
+bird_superhero,Auto-BI-style(reimpl.),0,0.0,107,105,107,1.0,0.018691588785046728,0.0,2,0,105,2
+bird_thrombosis_prediction,DDL-declared,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_thrombosis_prediction,LLM-judge:ds-flash,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_thrombosis_prediction,LLM-judge:glm,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_thrombosis_prediction,LLM-judge:kimi,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_thrombosis_prediction,LLM-judge:vote,0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_thrombosis_prediction,CardEst(HLL stats),0,0.0,2,1,0,0.0,0.0,0.0,0,0,0,0
+bird_thrombosis_prediction,Auto-BI-style(reimpl.),0,0.0,2,1,2,1.0,0.5,0.0,1,0,1,1
+bird_toxicology,DDL-declared,0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+bird_toxicology,LLM-judge:ds-flash,0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+bird_toxicology,LLM-judge:glm,0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+bird_toxicology,LLM-judge:kimi,0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+bird_toxicology,LLM-judge:vote,0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+bird_toxicology,CardEst(HLL stats),0,0.0,9,3,3,1.0,0.0,0.0,0,0,3,0
+bird_toxicology,Auto-BI-style(reimpl.),0,0.0,9,3,9,1.0,0.6666666666666666,0.0,6,0,3,6
+tpcds,DDL-declared,0,0.0,316,250,254,1.0,0.015748031496062992,0.0,4,0,250,4
+tpcds,LLM-judge:ds-flash,0,0.0,316,250,254,0.988,0.027559055118110236,0.0,7,0,247,7
+tpcds,LLM-judge:glm,0,0.0,316,250,316,0.988,0.21835443037974683,0.0,69,0,247,69
+tpcds,LLM-judge:kimi,0,0.0,316,250,316,0.988,0.21835443037974683,0.0,69,0,247,69
+tpcds,LLM-judge:vote,0,0.0,316,250,316,0.988,0.21835443037974683,0.0,69,0,247,69
+tpcds,CardEst(HLL stats),0,0.0,316,250,233,0.804,0.11158798283261803,0.02575107296137339,26,6,201,26
+tpcds,Auto-BI-style(reimpl.),0,0.0,316,250,316,0.268,0.7784810126582279,0.00949367088607595,246,3,67,246
+tpcds_dirty0,DDL-declared,0,0.0,316,122,254,1.0,0.5196850393700787,0.0,132,0,122,126
+tpcds_dirty0,LLM-judge:ds-flash,0,0.0,316,122,254,1.0,0.5196850393700787,0.0,132,0,122,129
+tpcds_dirty0,LLM-judge:glm,0,0.0,316,122,316,1.0,0.6139240506329114,0.0,194,0,122,191
+tpcds_dirty0,LLM-judge:kimi,0,0.0,316,122,316,1.0,0.6139240506329114,0.0,194,0,122,191
+tpcds_dirty0,LLM-judge:vote,0,0.0,316,122,316,1.0,0.6139240506329114,0.0,194,0,122,191
+tpcds_dirty0,CardEst(HLL stats),0,0.0,316,122,196,1.0,0.35714285714285715,0.02040816326530612,70,4,122,70
+tpcds_dirty0,Auto-BI-style(reimpl.),0,0.0,316,122,316,0.29508196721311475,0.8860759493670886,0.0,280,0,36,280
+tpcds_dirty1,DDL-declared,0,0.0,316,142,254,1.0,0.4409448818897638,0.0,112,0,142,112
+tpcds_dirty1,LLM-judge:ds-flash,0,0.0,316,142,254,0.9929577464788732,0.4448818897637795,0.0,113,0,141,113
+tpcds_dirty1,LLM-judge:glm,0,0.0,316,142,316,0.9929577464788732,0.5537974683544303,0.0,175,0,141,175
+tpcds_dirty1,LLM-judge:kimi,0,0.0,316,142,316,0.9929577464788732,0.5537974683544303,0.0,175,0,141,175
+tpcds_dirty1,LLM-judge:vote,0,0.0,316,142,316,0.9929577464788732,0.5537974683544303,0.0,175,0,141,175
+tpcds_dirty1,CardEst(HLL stats),0,0.0,316,142,195,0.7605633802816901,0.4153846153846154,0.03076923076923077,81,6,108,81
+tpcds_dirty1,Auto-BI-style(reimpl.),0,0.0,316,142,316,0.352112676056338,0.8322784810126582,0.00949367088607595,263,3,50,263
+tpch,DDL-declared,0,0.0,66,61,61,1.0,0.0,0.0,0,0,61,0
+tpch,LLM-judge:ds-flash,0,0.0,66,61,61,1.0,0.0,0.0,0,0,61,0
+tpch,LLM-judge:glm,0,0.0,66,61,61,1.0,0.0,0.0,0,0,61,0
+tpch,LLM-judge:kimi,0,0.0,66,61,61,1.0,0.0,0.0,0,0,61,0
+tpch,LLM-judge:vote,0,0.0,66,61,61,1.0,0.0,0.0,0,0,61,0
+tpch,CardEst(HLL stats),0,0.0,66,61,11,0.18032786885245902,0.0,0.0,0,0,11,0
+tpch,Auto-BI-style(reimpl.),0,0.0,66,61,66,0.9016393442622951,0.16666666666666666,0.0,11,0,55,11
+tpch_dirty0,DDL-declared,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty0,LLM-judge:ds-flash,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty0,LLM-judge:glm,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty0,LLM-judge:kimi,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty0,LLM-judge:vote,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty0,CardEst(HLL stats),0,0.0,66,7,5,0.5714285714285714,0.2,0.0,1,0,4,1
+tpch_dirty0,Auto-BI-style(reimpl.),0,0.0,66,7,66,1.0,0.8939393939393939,0.0,59,0,7,59
+tpch_dirty1,DDL-declared,0,0.0,66,4,61,1.0,0.9344262295081968,0.0,57,0,4,57
+tpch_dirty1,LLM-judge:ds-flash,0,0.0,66,4,61,1.0,0.9344262295081968,0.0,57,0,4,57
+tpch_dirty1,LLM-judge:glm,0,0.0,66,4,61,1.0,0.9344262295081968,0.0,57,0,4,57
+tpch_dirty1,LLM-judge:kimi,0,0.0,66,4,61,1.0,0.9344262295081968,0.0,57,0,4,57
+tpch_dirty1,LLM-judge:vote,0,0.0,66,4,61,1.0,0.9344262295081968,0.0,57,0,4,57
+tpch_dirty1,CardEst(HLL stats),0,0.0,66,4,5,1.0,0.2,0.0,1,0,4,1
+tpch_dirty1,Auto-BI-style(reimpl.),0,0.0,66,4,66,1.0,0.9393939393939394,0.0,62,0,4,62
+tpch_dirty2,DDL-declared,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty2,LLM-judge:ds-flash,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty2,LLM-judge:glm,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty2,LLM-judge:kimi,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty2,LLM-judge:vote,0,0.0,66,7,61,1.0,0.8852459016393442,0.0,54,0,7,54
+tpch_dirty2,CardEst(HLL stats),0,0.0,66,7,5,0.5714285714285714,0.2,0.0,1,0,4,1
+tpch_dirty2,Auto-BI-style(reimpl.),0,0.0,66,7,66,1.0,0.8939393939393939,0.0,59,0,7,59

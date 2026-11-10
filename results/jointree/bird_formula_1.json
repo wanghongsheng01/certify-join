@@ -1,0 +1,237 @@
+{
+ "summary": {
+  "inst": "bird_formula_1",
+  "n_tables": 13,
+  "n_cand": 92,
+  "n_verified": 21,
+  "n_verified_gold": 19,
+  "rev_expanding": 20,
+  "rev_max": 16272,
+  "rev_avg_max": 3474.123966942149,
+  "rev_top": [
+   [
+    "lapTimes.driverId->drivers.driverId",
+    16272,
+    3474.1
+   ],
+   [
+    "results.statusId->status.statusId",
+    5966,
+    179.2
+   ],
+   [
+    "results.constructorId->constructors.constructorId",
+    2128,
+    114.3
+   ],
+   [
+    "lapTimes.raceId->races.raceId",
+    1649,
+    1080.6
+   ],
+   [
+    "constructorStandings.constructorId->constructors.constructorId",
+    903,
+    75.9
+   ]
+  ],
+  "pairs_und_h2": 128,
+  "amb_und_h2": 42,
+  "fanonly_und_h2": 81,
+  "pairs_dir_h2": 48,
+  "amb_dir_h2": 0,
+  "pairs_und_h3": 156,
+  "amb_und_h3": 70,
+  "fanonly_und_h3": 98,
+  "pairs_dir_h3": 60,
+  "amb_dir_h3": 0,
+  "dir_amb_pairs": 0,
+  "dir_amb_role": 0,
+  "dir_amb_route": 0,
+  "n_probes": 0,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 0,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 0,
+  "probe_secs": 0.0,
+  "n_queries": 171,
+  "n_answerable": 74,
+  "bfs3_n": 171,
+  "bfs3_ambiguous": 51,
+  "bfs3_answered": 171,
+  "bfs3_fanout": 33,
+  "bfs3_nongold": 16,
+  "bfs3_correct": 122,
+  "prod2_n": 171,
+  "prod2_ambiguous": 47,
+  "prod2_answered": 112,
+  "prod2_fanout": 0,
+  "prod2_nongold": 7,
+  "prod2_correct": 105,
+  "prod2_refused_fanout": 8,
+  "prod2_refused_amb": 47,
+  "prod2_unreach": 4,
+  "prod3_n": 171,
+  "prod3_ambiguous": 51,
+  "prod3_answered": 112,
+  "prod3_fanout": 0,
+  "prod3_nongold": 7,
+  "prod3_correct": 105,
+  "prod3_refused_fanout": 8,
+  "prod3_refused_amb": 51,
+  "prodc2_n": 171,
+  "prodc2_answered": 142,
+  "prodc2_tied_silent": 0,
+  "prodc2_nongold": 20,
+  "prodc2_correct": 122,
+  "prodc2_correct_untied": 122,
+  "prodc2_unreach": 29,
+  "prodc3_n": 171,
+  "prodc3_answered": 146,
+  "prodc3_tied_silent": 0,
+  "prodc3_nongold": 24,
+  "prodc3_correct": 122,
+  "prodc3_correct_untied": 122,
+  "prodc3_unreach": 25,
+  "steiner_n": 171,
+  "steiner_answered": 146,
+  "steiner_nongold": 8,
+  "steiner_correct": 138,
+  "steiner_unreach": 25,
+  "multi_queries": 105,
+  "hops_steiner": 305,
+  "hops_union": 305,
+  "full_scan": 514287
+ },
+ "probes": [],
+ "rev": {
+  "races.circuitId->circuits.circuitId": {
+   "ndv": 72,
+   "rows": 976,
+   "max": 67,
+   "avg": 13.555555555555555
+  },
+  "races.year->seasons.year": {
+   "ndv": 68,
+   "rows": 976,
+   "max": 21,
+   "avg": 14.352941176470589
+  },
+  "constructorResults.constructorId->constructors.constructorId": {
+   "ndv": 172,
+   "rows": 11082,
+   "max": 891,
+   "avg": 64.43023255813954
+  },
+  "constructorResults.raceId->races.raceId": {
+   "ndv": 907,
+   "rows": 11082,
+   "max": 20,
+   "avg": 12.218302094818082
+  },
+  "constructorStandings.constructorId->constructors.constructorId": {
+   "ndv": 156,
+   "rows": 11836,
+   "max": 903,
+   "avg": 75.87179487179488
+  },
+  "constructorStandings.raceId->races.raceId": {
+   "ndv": 906,
+   "rows": 11836,
+   "max": 22,
+   "avg": 13.06401766004415
+  },
+  "driverStandings.driverId->drivers.driverId": {
+   "ndv": 833,
+   "rows": 31578,
+   "max": 312,
+   "avg": 37.90876350540216
+  },
+  "driverStandings.raceId->races.raceId": {
+   "ndv": 970,
+   "rows": 31578,
+   "max": 108,
+   "avg": 32.55463917525773
+  },
+  "lapTimes.driverId->drivers.driverId": {
+   "ndv": 121,
+   "rows": 420369,
+   "max": 16272,
+   "avg": 3474.123966942149
+  },
+  "lapTimes.raceId->races.raceId": {
+   "ndv": 389,
+   "rows": 420369,
+   "max": 1649,
+   "avg": 1080.6401028277635
+  },
+  "pitStops.driverId->drivers.driverId": {
+   "ndv": 54,
+   "rows": 6070,
+   "max": 306,
+   "avg": 112.4074074074074
+  },
+  "pitStops.raceId->races.raceId": {
+   "ndv": 131,
+   "rows": 6070,
+   "max": 96,
+   "avg": 46.33587786259542
+  },
+  "qualifying.constructorId->constructors.constructorId": {
+   "ndv": 41,
+   "rows": 7397,
+   "max": 678,
+   "avg": 180.41463414634146
+  },
+  "qualifying.driverId->drivers.driverId": {
+   "ndv": 151,
+   "rows": 7397,
+   "max": 270,
+   "avg": 48.98675496688742
+  },
+  "qualifying.raceId->races.raceId": {
+   "ndv": 339,
+   "rows": 7397,
+   "max": 28,
+   "avg": 21.820058997050147
+  },
+  "results.statusId->status.statusId": {
+   "ndv": 132,
+   "rows": 23657,
+   "max": 5966,
+   "avg": 179.21969696969697
+  },
+  "results.constructorId->constructors.constructorId": {
+   "ndv": 207,
+   "rows": 23657,
+   "max": 2128,
+   "avg": 114.28502415458937
+  },
+  "results.driverId->drivers.driverId": {
+   "ndv": 840,
+   "rows": 23657,
+   "max": 326,
+   "avg": 28.163095238095238
+  },
+  "results.raceId->races.raceId": {
+   "ndv": 970,
+   "rows": 23657,
+   "max": 55,
+   "avg": 24.388659793814433
+  },
+  "circuits.circuitId->results.resultId": {
+   "ndv": 72,
+   "rows": 72,
+   "max": 1,
+   "avg": 1.0
+  },
+  "races.circuitId->results.resultId": {
+   "ndv": 72,
+   "rows": 976,
+   "max": 67,
+   "avg": 13.555555555555555
+  }
+ }
+}

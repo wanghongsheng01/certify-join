@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes.}
+\label{tab:maint}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Inst. & Setting & Rows (\%) & Full (s) & Incr.\ (s) & Speedup \\
+\midrule
+TPC-H & SF1 & 0.038 & 5.5 & 0.71 & 7.7\xx \\
+TPC-H & SF10, same $\Delta$ & 0.004 & 20.6 & 1.70 & 12.1\xx \\
+TPC-H & SF10, prop.\ $\Delta$ & 0.037 & 18.2 & 4.07 & 4.5\xx \\
+TPC-DS & SF1 & 0.022 & 22.3 & 1.26 & 17.7\xx \\
+TPC-DS & SF10, same $\Delta$ & 0.003 & 34.3 & 1.39 & 24.8\xx \\
+TPC-DS & SF10, prop.\ $\Delta$ & 0.026 & 41.6 & 4.35 & 9.6\xx \\
+\bottomrule
+\end{tabular}
+\end{table}

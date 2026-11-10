@@ -1,0 +1,538 @@
+{
+ "summary": {
+  "inst": "bird_european_football_2",
+  "n_tables": 7,
+  "n_cand": 82,
+  "n_verified": 37,
+  "n_verified_gold": 28,
+  "rev_expanding": 30,
+  "rev_max": 3040,
+  "rev_avg_max": 2361.7272727272725,
+  "rev_top": [
+   [
+    "Match.country_id->League.country_id",
+    3040,
+    2361.7
+   ],
+   [
+    "Match.country_id->Country.id",
+    3040,
+    2361.7
+   ],
+   [
+    "Match.league_id->League.id",
+    3040,
+    2361.7
+   ],
+   [
+    "Match.away_team_api_id->Team.team_api_id",
+    153,
+    86.9
+   ],
+   [
+    "Match.home_team_api_id->Team.team_api_id",
+    152,
+    86.9
+   ]
+  ],
+  "pairs_und_h2": 34,
+  "amb_und_h2": 30,
+  "fanonly_und_h2": 7,
+  "pairs_dir_h2": 23,
+  "amb_dir_h2": 14,
+  "pairs_und_h3": 42,
+  "amb_und_h3": 38,
+  "fanonly_und_h3": 11,
+  "pairs_dir_h3": 26,
+  "amb_dir_h3": 17,
+  "dir_amb_pairs": 17,
+  "dir_amb_role": 17,
+  "dir_amb_route": 0,
+  "n_probes": 17,
+  "probe_equiv": 5,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 12,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 2610267,
+  "probe_secs": 0.07,
+  "n_queries": 7,
+  "n_answerable": 6,
+  "bfs3_n": 7,
+  "bfs3_ambiguous": 6,
+  "bfs3_answered": 7,
+  "bfs3_fanout": 1,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 6,
+  "prod2_n": 7,
+  "prod2_ambiguous": 6,
+  "prod2_refused_amb": 6,
+  "prod2_answered": 1,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 1,
+  "prod3_n": 7,
+  "prod3_ambiguous": 6,
+  "prod3_refused_amb": 6,
+  "prod3_answered": 1,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 1,
+  "prodc2_n": 7,
+  "prodc2_answered": 6,
+  "prodc2_tied_silent": 5,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 6,
+  "prodc2_correct_untied": 1,
+  "prodc2_unreach": 1,
+  "prodc3_n": 7,
+  "prodc3_answered": 6,
+  "prodc3_tied_silent": 5,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 6,
+  "prodc3_correct_untied": 1,
+  "prodc3_unreach": 1,
+  "steiner_n": 7,
+  "steiner_ambiguous": 5,
+  "steiner_amb_certified": 1,
+  "steiner_answered": 2,
+  "steiner_nongold": 0,
+  "steiner_correct": 2,
+  "steiner_refused_amb": 4,
+  "steiner_unreach": 1,
+  "multi_queries": 0,
+  "hops_steiner": 0,
+  "hops_union": 0,
+  "full_scan": 222796
+ },
+ "probes": [
+  {
+   "n": 11,
+   "diff": 11,
+   "diff_both": 11,
+   "src": "Country",
+   "dst": "Team",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 52567,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 11,
+   "diff": 0,
+   "diff_both": 0,
+   "src": "League",
+   "dst": "Country",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 33,
+   "gold1": true,
+   "gold2": false
+  },
+  {
+   "n": 11,
+   "diff": 11,
+   "diff_both": 11,
+   "src": "League",
+   "dst": "Team",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 52567,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 25979,
+   "diff": 25979,
+   "diff_both": 25979,
+   "src": "Match",
+   "dst": "Team",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 26577,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 25979,
+   "diff": 0,
+   "diff_both": 0,
+   "src": "Match",
+   "dst": "League",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 26001,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 11060,
+   "diff": 11060,
+   "diff_both": 11060,
+   "src": "Player",
+   "dst": "Team",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 63616,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 11060,
+   "diff": 0,
+   "diff_both": 0,
+   "src": "Player",
+   "dst": "League",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 63040,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 212,
+   "diff_both": 163,
+   "src": "Player_Attributes",
+   "dst": "Player",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 206098,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 183978,
+   "diff": 212,
+   "diff_both": 163,
+   "src": "Player_Attributes",
+   "dst": "Match",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 258056,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 212,
+   "diff_both": 163,
+   "src": "Player_Attributes",
+   "dst": "Team",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258654,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 183978,
+   "diff_both": 183978,
+   "src": "Player_Attributes",
+   "dst": "Team",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258654,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 183978,
+   "diff_both": 183929,
+   "src": "Player_Attributes",
+   "dst": "Team",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258654,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 68,
+   "diff_both": 19,
+   "src": "Player_Attributes",
+   "dst": "League",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258078,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 0,
+   "diff_both": 0,
+   "src": "Player_Attributes",
+   "dst": "League",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258078,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 68,
+   "diff_both": 19,
+   "src": "Player_Attributes",
+   "dst": "League",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258078,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 183978,
+   "diff": 68,
+   "diff_both": 19,
+   "src": "Player_Attributes",
+   "dst": "Country",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 258078,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 1458,
+   "diff": 0,
+   "diff_both": 0,
+   "src": "Team_Attributes",
+   "dst": "League",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 53438,
+   "gold1": false,
+   "gold2": false
+  }
+ ],
+ "rev": {
+  "Player_Attributes.player_api_id->Player.player_api_id": {
+   "ndv": 11060,
+   "rows": 183978,
+   "max": 56,
+   "avg": 16.634538878842676
+  },
+  "Player_Attributes.player_fifa_api_id->Player.player_fifa_api_id": {
+   "ndv": 11062,
+   "rows": 183978,
+   "max": 96,
+   "avg": 16.63153136864943
+  },
+  "League.country_id->Country.id": {
+   "ndv": 11,
+   "rows": 11,
+   "max": 1,
+   "avg": 1.0
+  },
+  "Team_Attributes.team_api_id->Team.team_api_id": {
+   "ndv": 288,
+   "rows": 1458,
+   "max": 6,
+   "avg": 5.0625
+  },
+  "Match.away_player_11->Player.player_api_id": {
+   "ndv": 3040,
+   "rows": 24425,
+   "max": 91,
+   "avg": 8.03453947368421
+  },
+  "Match.away_player_10->Player.player_api_id": {
+   "ndv": 3891,
+   "rows": 24538,
+   "max": 77,
+   "avg": 6.306347982523773
+  },
+  "Match.away_player_9->Player.player_api_id": {
+   "ndv": 4319,
+   "rows": 24651,
+   "max": 86,
+   "avg": 5.707571197036351
+  },
+  "Match.away_player_8->Player.player_api_id": {
+   "ndv": 4249,
+   "rows": 24638,
+   "max": 69,
+   "avg": 5.798540833137209
+  },
+  "Match.away_player_7->Player.player_api_id": {
+   "ndv": 3620,
+   "rows": 24744,
+   "max": 100,
+   "avg": 6.8353591160221
+  },
+  "Match.away_player_6->Player.player_api_id": {
+   "ndv": 3930,
+   "rows": 24666,
+   "max": 85,
+   "avg": 6.2763358778625955
+  },
+  "Match.away_player_5->Player.player_api_id": {
+   "ndv": 2884,
+   "rows": 24644,
+   "max": 124,
+   "avg": 8.54507628294036
+  },
+  "Match.away_player_4->Player.player_api_id": {
+   "ndv": 2657,
+   "rows": 24658,
+   "max": 115,
+   "avg": 9.280391418893489
+  },
+  "Match.away_player_3->Player.player_api_id": {
+   "ndv": 2470,
+   "rows": 24686,
+   "max": 106,
+   "avg": 9.994331983805669
+  },
+  "Match.away_player_2->Player.player_api_id": {
+   "ndv": 2504,
+   "rows": 24701,
+   "max": 112,
+   "avg": 9.86461661341853
+  },
+  "Match.away_player_1->Player.player_api_id": {
+   "ndv": 926,
+   "rows": 24745,
+   "max": 151,
+   "avg": 26.72246220302376
+  },
+  "Match.home_player_11->Player.player_api_id": {
+   "ndv": 2890,
+   "rows": 24424,
+   "max": 103,
+   "avg": 8.45121107266436
+  },
+  "Match.home_player_10->Player.player_api_id": {
+   "ndv": 3642,
+   "rows": 24543,
+   "max": 85,
+   "avg": 6.738879736408567
+  },
+  "Match.home_player_9->Player.player_api_id": {
+   "ndv": 4114,
+   "rows": 24706,
+   "max": 85,
+   "avg": 6.005347593582887
+  },
+  "Match.home_player_8->Player.player_api_id": {
+   "ndv": 4076,
+   "rows": 24670,
+   "max": 75,
+   "avg": 6.052502453385673
+  },
+  "Match.home_player_7->Player.player_api_id": {
+   "ndv": 3422,
+   "rows": 24752,
+   "max": 85,
+   "avg": 7.233196960841613
+  },
+  "Match.home_player_6->Player.player_api_id": {
+   "ndv": 3798,
+   "rows": 24654,
+   "max": 80,
+   "avg": 6.4913112164296995
+  },
+  "Match.home_player_5->Player.player_api_id": {
+   "ndv": 2769,
+   "rows": 24663,
+   "max": 122,
+   "avg": 8.9068255687974
+  },
+  "Match.home_player_4->Player.player_api_id": {
+   "ndv": 2606,
+   "rows": 24656,
+   "max": 113,
+   "avg": 9.461243284727551
+  },
+  "Match.home_player_3->Player.player_api_id": {
+   "ndv": 2375,
+   "rows": 24698,
+   "max": 107,
+   "avg": 10.399157894736842
+  },
+  "Match.home_player_2->Player.player_api_id": {
+   "ndv": 2414,
+   "rows": 24664,
+   "max": 110,
+   "avg": 10.217067108533554
+  },
+  "Match.home_player_1->Player.player_api_id": {
+   "ndv": 906,
+   "rows": 24755,
+   "max": 149,
+   "avg": 27.323399558498895
+  },
+  "Match.away_team_api_id->Team.team_api_id": {
+   "ndv": 299,
+   "rows": 25979,
+   "max": 153,
+   "avg": 86.88628762541806
+  },
+  "Match.home_team_api_id->Team.team_api_id": {
+   "ndv": 299,
+   "rows": 25979,
+   "max": 152,
+   "avg": 86.88628762541806
+  },
+  "Country.id->League.id": {
+   "ndv": 11,
+   "rows": 11,
+   "max": 1,
+   "avg": 1.0
+  },
+  "Country.id->Match.id": {
+   "ndv": 11,
+   "rows": 11,
+   "max": 1,
+   "avg": 1.0
+  },
+  "League.id->Country.id": {
+   "ndv": 11,
+   "rows": 11,
+   "max": 1,
+   "avg": 1.0
+  },
+  "League.id->Match.id": {
+   "ndv": 11,
+   "rows": 11,
+   "max": 1,
+   "avg": 1.0
+  },
+  "Match.country_id->League.country_id": {
+   "ndv": 11,
+   "rows": 25979,
+   "max": 3040,
+   "avg": 2361.7272727272725
+  },
+  "Match.country_id->Country.id": {
+   "ndv": 11,
+   "rows": 25979,
+   "max": 3040,
+   "avg": 2361.7272727272725
+  },
+  "Match.league_id->League.id": {
+   "ndv": 11,
+   "rows": 25979,
+   "max": 3040,
+   "avg": 2361.7272727272725
+  },
+  "Player.id->Match.id": {
+   "ndv": 11060,
+   "rows": 11060,
+   "max": 1,
+   "avg": 1.0
+  },
+  "Team_Attributes.id->Match.id": {
+   "ndv": 1458,
+   "rows": 1458,
+   "max": 1,
+   "avg": 1.0
+  }
+ }
+}

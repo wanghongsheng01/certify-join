@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering
+\caption{Production BI platform (aggregate counts only). LLM judges: DeepSeek / GLM / Kimi.}
+\label{tab:prod}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\multicolumn{2}{@{}l}{\textit{ERP database}} \\
+\quad tables / rows & 36 / 327.6M \\
+\quad candidates / safe & 909 / 47 (5.2\%) \\
+\quad full verification (DB time) & 25.7\,h \\
+\quad of it on edges with false key & 88\% \\
+\addlinespace[2pt]\multicolumn{2}{@{}l}{\textit{Deciding a workload on the ERP}} \\
+\quad queries / answerable & 130 / 105 \\
+\quad per-edge / KeyFirst / WL-Full (DB h) & 25.7 / 3.0 / 2.5 \\
+\quad Certify-Join / Certify-Join+S (DB h) & 1.31 / 1.12 \\
+\addlinespace[2pt]\multicolumn{2}{@{}l}{\textit{Platform whitelist}} \\
+\quad candidates / verified & 598 / 295 \\
+\quad LLM-accepted edges that validation rejects & 26.0 / 49.8 / 50.2\% \\
+\addlinespace[2pt]\multicolumn{2}{@{}l}{\textit{Published workload}} \\
+\quad cells / answerable / with join & 13,848 / 2,983 / 379 \\
+\quad verified edges used / key atoms & 15 of 295 / 11 \\
+\quad rows to certify them & 2.75\% of validation \\
+\addlinespace[2pt]\multicolumn{2}{@{}l}{\textit{Direction-blind}} \\
+\quad answers walking an edge in reverse & 342 (10.6\%) \\
+\quad median expansion of those walks & 862\xx \\
+\bottomrule
+\end{tabular}
+\end{table}

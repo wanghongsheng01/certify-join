@@ -1,0 +1,296 @@
+{
+ "summary": {
+  "inst": "bird_superhero",
+  "n_tables": 10,
+  "n_cand": 46,
+  "n_verified": 19,
+  "n_verified_gold": 11,
+  "rev_expanding": 12,
+  "rev_max": 681,
+  "rev_avg_max": 623.0,
+  "rev_top": [
+   [
+    "superhero.skin_colour_id->colour.id",
+    681,
+    46.9
+   ],
+   [
+    "hero_attribute.attribute_id->attribute.id",
+    623,
+    623.0
+   ],
+   [
+    "hero_attribute.attribute_id->colour.id",
+    623,
+    623.0
+   ],
+   [
+    "superhero.gender_id->gender.id",
+    519,
+    250.0
+   ],
+   [
+    "superhero.alignment_id->alignment.id",
+    504,
+    248.0
+   ]
+  ],
+  "pairs_und_h2": 72,
+  "amb_und_h2": 18,
+  "fanonly_und_h2": 32,
+  "pairs_dir_h2": 27,
+  "amb_dir_h2": 3,
+  "pairs_und_h3": 88,
+  "amb_und_h3": 24,
+  "fanonly_und_h3": 47,
+  "pairs_dir_h3": 28,
+  "amb_dir_h3": 4,
+  "dir_amb_pairs": 4,
+  "dir_amb_role": 2,
+  "dir_amb_route": 2,
+  "n_probes": 6,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 6,
+  "probe_route": 2,
+  "probe_route_equiv": 0,
+  "probe_rows": 24543,
+  "probe_secs": 0.01,
+  "n_queries": 107,
+  "n_answerable": 105,
+  "bfs3_n": 107,
+  "bfs3_ambiguous": 55,
+  "bfs3_answered": 107,
+  "bfs3_fanout": 0,
+  "bfs3_nongold": 13,
+  "bfs3_correct": 94,
+  "prod2_n": 107,
+  "prod2_ambiguous": 54,
+  "prod2_refused_amb": 54,
+  "prod2_answered": 52,
+  "prod2_fanout": 0,
+  "prod2_nongold": 4,
+  "prod2_correct": 48,
+  "prod2_unreach": 1,
+  "prod3_n": 107,
+  "prod3_ambiguous": 55,
+  "prod3_refused_amb": 55,
+  "prod3_answered": 52,
+  "prod3_fanout": 0,
+  "prod3_nongold": 4,
+  "prod3_correct": 48,
+  "prodc2_n": 107,
+  "prodc2_answered": 106,
+  "prodc2_tied_silent": 54,
+  "prodc2_nongold": 12,
+  "prodc2_correct": 94,
+  "prodc2_correct_untied": 48,
+  "prodc2_unreach": 1,
+  "prodc3_n": 107,
+  "prodc3_answered": 107,
+  "prodc3_tied_silent": 55,
+  "prodc3_nongold": 13,
+  "prodc3_correct": 94,
+  "prodc3_correct_untied": 48,
+  "steiner_n": 107,
+  "steiner_answered": 81,
+  "steiner_nongold": 11,
+  "steiner_correct": 70,
+  "steiner_ambiguous": 26,
+  "steiner_refused_amb": 26,
+  "multi_queries": 64,
+  "hops_steiner": 193,
+  "hops_union": 193,
+  "full_scan": 10614
+ },
+ "probes": [
+  {
+   "n": 5825,
+   "diff": 4557,
+   "diff_both": 4557,
+   "src": "hero_power",
+   "dst": "colour",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 7395,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 5825,
+   "diff": 4841,
+   "diff_both": 4841,
+   "src": "hero_power",
+   "dst": "colour",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 7395,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 5825,
+   "diff": 2916,
+   "diff_both": 2822,
+   "src": "hero_power",
+   "dst": "attribute",
+   "hops": 3,
+   "kind": "route",
+   "rows_read": 7344,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 750,
+   "diff": 534,
+   "diff_both": 534,
+   "src": "superhero",
+   "dst": "colour",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 820,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 750,
+   "diff": 567,
+   "diff_both": 567,
+   "src": "superhero",
+   "dst": "colour",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 820,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 750,
+   "diff": 391,
+   "diff_both": 385,
+   "src": "superhero",
+   "dst": "attribute",
+   "hops": 2,
+   "kind": "route",
+   "rows_read": 769,
+   "gold1": false,
+   "gold2": false
+  }
+ ],
+ "rev": {
+  "superhero.skin_colour_id->colour.id": {
+   "ndv": 16,
+   "rows": 750,
+   "max": 681,
+   "avg": 46.875
+  },
+  "superhero.race_id->race.id": {
+   "ndv": 61,
+   "rows": 746,
+   "max": 295,
+   "avg": 12.229508196721312
+  },
+  "superhero.publisher_id->publisher.id": {
+   "ndv": 25,
+   "rows": 747,
+   "max": 387,
+   "avg": 29.88
+  },
+  "superhero.hair_colour_id->colour.id": {
+   "ndv": 26,
+   "rows": 750,
+   "max": 246,
+   "avg": 28.846153846153847
+  },
+  "superhero.gender_id->gender.id": {
+   "ndv": 3,
+   "rows": 750,
+   "max": 519,
+   "avg": 250.0
+  },
+  "superhero.eye_colour_id->colour.id": {
+   "ndv": 21,
+   "rows": 750,
+   "max": 234,
+   "avg": 35.714285714285715
+  },
+  "superhero.alignment_id->alignment.id": {
+   "ndv": 3,
+   "rows": 744,
+   "max": 504,
+   "avg": 248.0
+  },
+  "hero_attribute.hero_id->superhero.id": {
+   "ndv": 623,
+   "rows": 3738,
+   "max": 6,
+   "avg": 6.0
+  },
+  "hero_attribute.attribute_id->attribute.id": {
+   "ndv": 6,
+   "rows": 3738,
+   "max": 623,
+   "avg": 623.0
+  },
+  "hero_power.power_id->superpower.id": {
+   "ndv": 167,
+   "rows": 5825,
+   "max": 358,
+   "avg": 34.880239520958085
+  },
+  "hero_power.hero_id->superhero.id": {
+   "ndv": 652,
+   "rows": 5825,
+   "max": 49,
+   "avg": 8.934049079754601
+  },
+  "alignment.id->attribute.id": {
+   "ndv": 4,
+   "rows": 4,
+   "max": 1,
+   "avg": 1.0
+  },
+  "alignment.id->colour.id": {
+   "ndv": 4,
+   "rows": 4,
+   "max": 1,
+   "avg": 1.0
+  },
+  "attribute.id->colour.id": {
+   "ndv": 6,
+   "rows": 6,
+   "max": 1,
+   "avg": 1.0
+  },
+  "gender.id->alignment.id": {
+   "ndv": 3,
+   "rows": 3,
+   "max": 1,
+   "avg": 1.0
+  },
+  "gender.id->attribute.id": {
+   "ndv": 3,
+   "rows": 3,
+   "max": 1,
+   "avg": 1.0
+  },
+  "gender.id->colour.id": {
+   "ndv": 3,
+   "rows": 3,
+   "max": 1,
+   "avg": 1.0
+  },
+  "hero_attribute.attribute_id->colour.id": {
+   "ndv": 6,
+   "rows": 3738,
+   "max": 623,
+   "avg": 623.0
+  },
+  "publisher.id->colour.id": {
+   "ndv": 25,
+   "rows": 25,
+   "max": 1,
+   "avg": 1.0
+  }
+ }
+}

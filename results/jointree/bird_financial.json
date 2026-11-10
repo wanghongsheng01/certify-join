@@ -1,0 +1,270 @@
+{
+ "summary": {
+  "inst": "bird_financial",
+  "n_tables": 8,
+  "n_cand": 64,
+  "n_verified": 12,
+  "n_verified_gold": 8,
+  "rev_expanding": 5,
+  "rev_max": 675,
+  "rev_avg_max": 234.73777777777778,
+  "rev_top": [
+   [
+    "trans.account_id->account.account_id",
+    675,
+    234.7
+   ],
+   [
+    "client.district_id->district.district_id",
+    663,
+    69.7
+   ],
+   [
+    "account.district_id->district.district_id",
+    554,
+    58.4
+   ],
+   [
+    "order.account_id->account.account_id",
+    5,
+    1.7
+   ],
+   [
+    "disp.account_id->account.account_id",
+    2,
+    1.2
+   ]
+  ],
+  "pairs_und_h2": 50,
+  "amb_und_h2": 6,
+  "fanonly_und_h2": 19,
+  "pairs_dir_h2": 21,
+  "amb_dir_h2": 4,
+  "pairs_und_h3": 56,
+  "amb_und_h3": 12,
+  "fanonly_und_h3": 21,
+  "pairs_dir_h3": 29,
+  "amb_dir_h3": 7,
+  "dir_amb_pairs": 7,
+  "dir_amb_role": 4,
+  "dir_amb_route": 3,
+  "n_probes": 7,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 7,
+  "probe_route": 3,
+  "probe_route_equiv": 0,
+  "probe_rows": 102933,
+  "probe_secs": 0.01,
+  "n_queries": 40,
+  "n_answerable": 32,
+  "bfs3_n": 40,
+  "bfs3_ambiguous": 13,
+  "bfs3_answered": 40,
+  "bfs3_fanout": 6,
+  "bfs3_nongold": 18,
+  "bfs3_correct": 16,
+  "prod2_n": 40,
+  "prod2_ambiguous": 12,
+  "prod2_answered": 22,
+  "prod2_fanout": 0,
+  "prod2_nongold": 8,
+  "prod2_correct": 14,
+  "prod2_refused_amb": 12,
+  "prod2_refused_fanout": 5,
+  "prod2_unreach": 1,
+  "prod3_n": 40,
+  "prod3_ambiguous": 13,
+  "prod3_answered": 22,
+  "prod3_fanout": 0,
+  "prod3_nongold": 8,
+  "prod3_correct": 14,
+  "prod3_refused_amb": 13,
+  "prod3_refused_fanout": 5,
+  "prodc2_n": 40,
+  "prodc2_answered": 34,
+  "prodc2_tied_silent": 12,
+  "prodc2_nongold": 18,
+  "prodc2_correct": 16,
+  "prodc2_correct_untied": 14,
+  "prodc2_unreach": 6,
+  "prodc3_n": 40,
+  "prodc3_answered": 35,
+  "prodc3_tied_silent": 12,
+  "prodc3_nongold": 19,
+  "prodc3_correct": 16,
+  "prodc3_correct_untied": 14,
+  "prodc3_unreach": 5,
+  "steiner_n": 40,
+  "steiner_answered": 18,
+  "steiner_nongold": 4,
+  "steiner_correct": 14,
+  "steiner_ambiguous": 16,
+  "steiner_refused_amb": 16,
+  "steiner_unreach": 6,
+  "multi_queries": 5,
+  "hops_steiner": 10,
+  "hops_union": 10,
+  "full_scan": 1079680
+ },
+ "probes": [
+  {
+   "n": 4500,
+   "diff": 4408,
+   "diff_both": 4150,
+   "src": "account",
+   "dst": "disp",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 17176,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 892,
+   "diff": 892,
+   "diff_both": 851,
+   "src": "card",
+   "dst": "disp",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 11630,
+   "gold1": true,
+   "gold2": false
+  },
+  {
+   "n": 892,
+   "diff": 868,
+   "diff_both": 789,
+   "src": "card",
+   "dst": "district",
+   "hops": 2,
+   "kind": "route",
+   "rows_read": 10915,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 5369,
+   "diff": 5257,
+   "diff_both": 4940,
+   "src": "client",
+   "dst": "disp",
+   "hops": 3,
+   "kind": "role",
+   "rows_read": 18045,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 5369,
+   "diff": 494,
+   "diff_both": 494,
+   "src": "disp",
+   "dst": "district",
+   "hops": 2,
+   "kind": "route",
+   "rows_read": 15392,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 5369,
+   "diff": 494,
+   "diff_both": 475,
+   "src": "disp",
+   "dst": "card",
+   "hops": 3,
+   "kind": "route",
+   "rows_read": 17176,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 77,
+   "diff": 75,
+   "diff_both": 71,
+   "src": "district",
+   "dst": "disp",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 12599,
+   "gold1": false,
+   "gold2": false
+  }
+ ],
+ "rev": {
+  "account.district_id->district.district_id": {
+   "ndv": 77,
+   "rows": 4500,
+   "max": 554,
+   "avg": 58.44155844155844
+  },
+  "card.disp_id->disp.disp_id": {
+   "ndv": 892,
+   "rows": 892,
+   "max": 1,
+   "avg": 1.0
+  },
+  "client.district_id->district.district_id": {
+   "ndv": 77,
+   "rows": 5369,
+   "max": 663,
+   "avg": 69.72727272727273
+  },
+  "disp.client_id->client.client_id": {
+   "ndv": 5369,
+   "rows": 5369,
+   "max": 1,
+   "avg": 1.0
+  },
+  "disp.account_id->account.account_id": {
+   "ndv": 4500,
+   "rows": 5369,
+   "max": 2,
+   "avg": 1.193111111111111
+  },
+  "loan.account_id->account.account_id": {
+   "ndv": 682,
+   "rows": 682,
+   "max": 1,
+   "avg": 1.0
+  },
+  "order.account_id->account.account_id": {
+   "ndv": 3758,
+   "rows": 6471,
+   "max": 5,
+   "avg": 1.7219265566790847
+  },
+  "trans.account_id->account.account_id": {
+   "ndv": 4500,
+   "rows": 1056320,
+   "max": 675,
+   "avg": 234.73777777777778
+  },
+  "card.card_id->account.account_id": {
+   "ndv": 892,
+   "rows": 892,
+   "max": 1,
+   "avg": 1.0
+  },
+  "card.card_id->client.client_id": {
+   "ndv": 892,
+   "rows": 892,
+   "max": 1,
+   "avg": 1.0
+  },
+  "card.card_id->disp.disp_id": {
+   "ndv": 892,
+   "rows": 892,
+   "max": 1,
+   "avg": 1.0
+  },
+  "district.district_id->card.card_id": {
+   "ndv": 77,
+   "rows": 77,
+   "max": 1,
+   "avg": 1.0
+  }
+ }
+}

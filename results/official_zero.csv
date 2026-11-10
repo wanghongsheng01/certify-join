@@ -1,0 +1,50 @@
+inst,method,cost,cost_frac,n_queries,n_answerable,n_certified,coverage,fcr_card,fcr_sem,n_card,n_sem,n_ok,n_card_eps
+tpch,DDL-declared,0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch,LLM-judge:ds-flash,0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch,LLM-judge:glm,0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch,LLM-judge:kimi,0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch,LLM-judge:vote,0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch,CardEst(HLL stats),0,0.0,20,20,5,0.25,0.0,0.0,0,0,5,0
+tpch,Auto-BI-style(reimpl.),0,0.0,20,20,20,1.0,0.0,0.0,0,0,20,0
+tpch_dirty0,DDL-declared,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty0,LLM-judge:ds-flash,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty0,LLM-judge:glm,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty0,LLM-judge:kimi,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty0,LLM-judge:vote,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty0,CardEst(HLL stats),0,0.0,20,5,5,0.6,0.4,0.0,2,0,3,2
+tpch_dirty0,Auto-BI-style(reimpl.),0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty1,DDL-declared,0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty1,LLM-judge:ds-flash,0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty1,LLM-judge:glm,0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty1,LLM-judge:kimi,0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty1,LLM-judge:vote,0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty1,CardEst(HLL stats),0,0.0,20,3,5,1.0,0.4,0.0,2,0,3,2
+tpch_dirty1,Auto-BI-style(reimpl.),0,0.0,20,3,20,1.0,0.85,0.0,17,0,3,17
+tpch_dirty2,DDL-declared,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty2,LLM-judge:ds-flash,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty2,LLM-judge:glm,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty2,LLM-judge:kimi,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty2,LLM-judge:vote,0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpch_dirty2,CardEst(HLL stats),0,0.0,20,5,5,0.6,0.4,0.0,2,0,3,2
+tpch_dirty2,Auto-BI-style(reimpl.),0,0.0,20,5,20,1.0,0.75,0.0,15,0,5,15
+tpcds,DDL-declared,0,0.0,97,52,52,1.0,0.0,0.0,0,0,52,0
+tpcds,LLM-judge:ds-flash,0,0.0,97,52,52,1.0,0.0,0.0,0,0,52,0
+tpcds,LLM-judge:glm,0,0.0,97,52,97,1.0,0.4639175257731959,0.0,45,0,52,45
+tpcds,LLM-judge:kimi,0,0.0,97,52,97,1.0,0.4639175257731959,0.0,45,0,52,45
+tpcds,LLM-judge:vote,0,0.0,97,52,97,1.0,0.4639175257731959,0.0,45,0,52,45
+tpcds,CardEst(HLL stats),0,0.0,97,52,27,0.4230769230769231,0.18518518518518517,0.0,5,0,22,5
+tpcds,Auto-BI-style(reimpl.),0,0.0,97,52,97,0.07692307692307693,0.9484536082474226,0.010309278350515464,92,1,4,92
+tpcds_dirty0,DDL-declared,0,0.0,97,11,52,1.0,0.7884615384615384,0.0,41,0,11,41
+tpcds_dirty0,LLM-judge:ds-flash,0,0.0,97,11,52,1.0,0.7884615384615384,0.0,41,0,11,41
+tpcds_dirty0,LLM-judge:glm,0,0.0,97,11,97,1.0,0.8865979381443299,0.0,86,0,11,86
+tpcds_dirty0,LLM-judge:kimi,0,0.0,97,11,97,1.0,0.8865979381443299,0.0,86,0,11,86
+tpcds_dirty0,LLM-judge:vote,0,0.0,97,11,97,1.0,0.8865979381443299,0.0,86,0,11,86
+tpcds_dirty0,CardEst(HLL stats),0,0.0,97,11,26,1.0,0.5769230769230769,0.0,15,0,11,15
+tpcds_dirty0,Auto-BI-style(reimpl.),0,0.0,97,11,97,0.0,1.0,0.0,97,0,0,97
+tpcds_dirty1,DDL-declared,0,0.0,97,4,52,1.0,0.9230769230769231,0.0,48,0,4,48
+tpcds_dirty1,LLM-judge:ds-flash,0,0.0,97,4,52,1.0,0.9230769230769231,0.0,48,0,4,48
+tpcds_dirty1,LLM-judge:glm,0,0.0,97,4,97,1.0,0.9587628865979382,0.0,93,0,4,93
+tpcds_dirty1,LLM-judge:kimi,0,0.0,97,4,97,1.0,0.9587628865979382,0.0,93,0,4,93
+tpcds_dirty1,LLM-judge:vote,0,0.0,97,4,97,1.0,0.9587628865979382,0.0,93,0,4,93
+tpcds_dirty1,CardEst(HLL stats),0,0.0,97,4,16,0.75,0.8125,0.0,13,0,3,13
+tpcds_dirty1,Auto-BI-style(reimpl.),0,0.0,97,4,97,0.25,0.9896907216494846,0.0,96,0,1,96

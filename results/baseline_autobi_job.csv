@@ -1,0 +1,5 @@
+inst,method,cost,cost_frac,n_queries,n_answerable,n_certified,coverage,fcr_card,fcr_sem,n_card,n_sem,n_ok,n_card_eps,cost_model,protocol,rows_read,secs,secs_features,secs_kmca,bb_calls,n_cand,n_train,n_train_pos,n_accepted,n_acc_gold,n_acc_unsafe,n_gold
+job,"Auto-BI(k-MCA, reimpl.)",74190187,1.0,103,79,18,0.20253164556962025,0.0,0.1111111111111111,0,2,16,0,scan,LOFO,74190187,596.506,596.477,0.007,7,107,1435,465,13,10,1,25
+job,"Auto-BI(k-MCA+EMS, reimpl.)",74190187,1.0,103,79,79,0.7721518987341772,0.16455696202531644,0.06329113924050633,13,5,61,11,scan,LOFO,74190187,596.506,596.477,0.007,7,107,1435,465,23,20,2,25
+job,Auto-BI-local(p>=0.5),74190187,1.0,103,79,85,0.9493670886075949,0.023529411764705882,0.09411764705882353,2,8,75,0,scan,LOFO,74190187,596.506,596.477,0.007,7,107,1435,465,33,23,5,25
+job,"Auto-BI-S(k-MCA, reimpl.)",0,0.0,103,79,18,0.12658227848101267,0.0,0.4444444444444444,0,8,10,0,scan,LOFO,0,0.024,0.0,0.0029,4,107,1435,465,10,6,2,25

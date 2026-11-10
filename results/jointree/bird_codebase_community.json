@@ -1,0 +1,263 @@
+{
+ "summary": {
+  "inst": "bird_codebase_community",
+  "n_tables": 8,
+  "n_cand": 90,
+  "n_verified": 13,
+  "n_verified_gold": 13,
+  "rev_expanding": 12,
+  "rev_max": 13220,
+  "rev_avg_max": 12.748405482426381,
+  "rev_top": [
+   [
+    "comments.UserId->users.Id",
+    13220,
+    12.6
+   ],
+   [
+    "postHistory.UserId->users.Id",
+    7314,
+    12.7
+   ],
+   [
+    "posts.LastEditorUserId->users.Id",
+    2806,
+    6.8
+   ],
+   [
+    "posts.OwnerUserId->users.Id",
+    1720,
+    4.1
+   ],
+   [
+    "badges.UserId->users.Id",
+    456,
+    3.2
+   ]
+  ],
+  "pairs_und_h2": 52,
+  "amb_und_h2": 24,
+  "fanonly_und_h2": 35,
+  "pairs_dir_h2": 12,
+  "amb_dir_h2": 4,
+  "pairs_und_h3": 56,
+  "amb_und_h3": 28,
+  "fanonly_und_h3": 39,
+  "pairs_dir_h3": 12,
+  "amb_dir_h3": 4,
+  "dir_amb_pairs": 4,
+  "dir_amb_role": 4,
+  "dir_amb_route": 0,
+  "n_probes": 6,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 6,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 1460316,
+  "probe_secs": 0.05,
+  "n_queries": 22,
+  "n_answerable": 7,
+  "bfs3_n": 22,
+  "bfs3_ambiguous": 8,
+  "bfs3_answered": 22,
+  "bfs3_fanout": 3,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 19,
+  "prod2_n": 22,
+  "prod2_ambiguous": 8,
+  "prod2_answered": 13,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 13,
+  "prod2_refused_amb": 8,
+  "prod2_refused_fanout": 1,
+  "prod3_n": 22,
+  "prod3_ambiguous": 8,
+  "prod3_answered": 13,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 13,
+  "prod3_refused_amb": 8,
+  "prod3_refused_fanout": 1,
+  "prodc2_n": 22,
+  "prodc2_answered": 19,
+  "prodc2_tied_silent": 6,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 19,
+  "prodc2_correct_untied": 13,
+  "prodc2_unreach": 3,
+  "prodc3_n": 22,
+  "prodc3_answered": 19,
+  "prodc3_tied_silent": 6,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 19,
+  "prodc3_correct_untied": 13,
+  "prodc3_unreach": 3,
+  "steiner_n": 22,
+  "steiner_answered": 11,
+  "steiner_nongold": 0,
+  "steiner_correct": 11,
+  "steiner_unreach": 5,
+  "steiner_ambiguous": 6,
+  "steiner_refused_amb": 6,
+  "multi_queries": 3,
+  "hops_steiner": 6,
+  "hops_union": 6,
+  "full_scan": 740646
+ },
+ "probes": [
+  {
+   "n": 11102,
+   "diff": 11102,
+   "diff_both": 11098,
+   "src": "postLinks",
+   "dst": "posts",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 195034,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 11102,
+   "diff": 9830,
+   "diff_both": 9441,
+   "src": "postLinks",
+   "dst": "users",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 275684,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 11102,
+   "diff": 8845,
+   "diff_both": 6578,
+   "src": "postLinks",
+   "dst": "users",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 275684,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 11102,
+   "diff": 10528,
+   "diff_both": 7087,
+   "src": "postLinks",
+   "dst": "users",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 275684,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 91966,
+   "diff": 67628,
+   "diff_both": 20693,
+   "src": "posts",
+   "dst": "users",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 172616,
+   "gold1": true,
+   "gold2": true
+  },
+  {
+   "n": 1032,
+   "diff": 180,
+   "diff_both": 175,
+   "src": "tags",
+   "dst": "users",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 265614,
+   "gold1": true,
+   "gold2": true
+  }
+ ],
+ "rev": {
+  "badges.UserId->users.Id": {
+   "ndv": 25078,
+   "rows": 79851,
+   "max": 456,
+   "avg": 3.184105590557461
+  },
+  "comments.UserId->users.Id": {
+   "ndv": 13647,
+   "rows": 171450,
+   "max": 13220,
+   "avg": 12.563200703451308
+  },
+  "comments.PostId->posts.Id": {
+   "ndv": 53416,
+   "rows": 174285,
+   "max": 45,
+   "avg": 3.2627864310319006
+  },
+  "postHistory.UserId->users.Id": {
+   "ndv": 22107,
+   "rows": 281829,
+   "max": 7314,
+   "avg": 12.748405482426381
+  },
+  "postHistory.PostId->posts.Id": {
+   "ndv": 91976,
+   "rows": 303155,
+   "max": 32,
+   "avg": 3.296022875532748
+  },
+  "postLinks.RelatedPostId->posts.Id": {
+   "ndv": 5177,
+   "rows": 11102,
+   "max": 96,
+   "avg": 2.144485223102183
+  },
+  "postLinks.PostId->posts.Id": {
+   "ndv": 7604,
+   "rows": 11102,
+   "max": 13,
+   "avg": 1.4600210415570751
+  },
+  "posts.ParentId->posts.Id": {
+   "ndv": 29006,
+   "rows": 47755,
+   "max": 136,
+   "avg": 1.6463835068606496
+  },
+  "posts.OwnerUserId->users.Id": {
+   "ndv": 21979,
+   "rows": 90574,
+   "max": 1720,
+   "avg": 4.120933618453979
+  },
+  "posts.LastEditorUserId->users.Id": {
+   "ndv": 6578,
+   "rows": 44605,
+   "max": 2806,
+   "avg": 6.780936454849498
+  },
+  "tags.ExcerptPostId->posts.Id": {
+   "ndv": 596,
+   "rows": 596,
+   "max": 1,
+   "avg": 1.0
+  },
+  "votes.UserId->users.Id": {
+   "ndv": 509,
+   "rows": 3425,
+   "max": 319,
+   "avg": 6.728880157170924
+  },
+  "votes.PostId->posts.Id": {
+   "ndv": 8584,
+   "rows": 38930,
+   "max": 81,
+   "avg": 4.535181733457596
+  }
+ }
+}

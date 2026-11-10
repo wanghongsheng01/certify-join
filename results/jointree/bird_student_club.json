@@ -1,0 +1,156 @@
+{
+ "summary": {
+  "inst": "bird_student_club",
+  "n_tables": 8,
+  "n_cand": 36,
+  "n_verified": 8,
+  "n_verified_gold": 8,
+  "rev_expanding": 7,
+  "rev_max": 30,
+  "rev_avg_max": 19.176470588235293,
+  "rev_top": [
+   [
+    "attendance.link_to_event->event.event_id",
+    30,
+    19.2
+   ],
+   [
+    "attendance.link_to_member->member.member_id",
+    16,
+    10.9
+   ],
+   [
+    "expense.link_to_member->member.member_id",
+    12,
+    10.7
+   ],
+   [
+    "budget.link_to_event->event.event_id",
+    4,
+    2.3
+   ],
+   [
+    "expense.link_to_budget->budget.budget_id",
+    3,
+    1.3
+   ]
+  ],
+  "pairs_und_h2": 44,
+  "amb_und_h2": 0,
+  "fanonly_und_h2": 27,
+  "pairs_dir_h2": 15,
+  "amb_dir_h2": 0,
+  "pairs_und_h3": 56,
+  "amb_und_h3": 0,
+  "fanonly_und_h3": 39,
+  "pairs_dir_h3": 15,
+  "amb_dir_h3": 0,
+  "dir_amb_pairs": 0,
+  "dir_amb_role": 0,
+  "dir_amb_route": 0,
+  "n_probes": 0,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 0,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 0,
+  "probe_secs": 0.0,
+  "n_queries": 58,
+  "n_answerable": 50,
+  "bfs3_n": 58,
+  "bfs3_ambiguous": 0,
+  "bfs3_answered": 58,
+  "bfs3_fanout": 8,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 50,
+  "prod2_n": 58,
+  "prod2_ambiguous": 0,
+  "prod2_refused_fanout": 8,
+  "prod2_answered": 50,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 50,
+  "prod3_n": 58,
+  "prod3_ambiguous": 0,
+  "prod3_refused_fanout": 8,
+  "prod3_answered": 50,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 50,
+  "prodc2_n": 58,
+  "prodc2_unreach": 8,
+  "prodc2_answered": 50,
+  "prodc2_tied_silent": 0,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 50,
+  "prodc2_correct_untied": 50,
+  "prodc3_n": 58,
+  "prodc3_unreach": 8,
+  "prodc3_answered": 50,
+  "prodc3_tied_silent": 0,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 50,
+  "prodc3_correct_untied": 50,
+  "steiner_n": 58,
+  "steiner_unreach": 8,
+  "steiner_answered": 50,
+  "steiner_nongold": 0,
+  "steiner_correct": 50,
+  "multi_queries": 35,
+  "hops_steiner": 105,
+  "hops_union": 105,
+  "full_scan": 42511
+ },
+ "probes": [],
+ "rev": {
+  "attendance.link_to_member->member.member_id": {
+   "ndv": 30,
+   "rows": 326,
+   "max": 16,
+   "avg": 10.866666666666667
+  },
+  "attendance.link_to_event->event.event_id": {
+   "ndv": 17,
+   "rows": 326,
+   "max": 30,
+   "avg": 19.176470588235293
+  },
+  "budget.link_to_event->event.event_id": {
+   "ndv": 23,
+   "rows": 52,
+   "max": 4,
+   "avg": 2.260869565217391
+  },
+  "expense.link_to_member->member.member_id": {
+   "ndv": 3,
+   "rows": 32,
+   "max": 12,
+   "avg": 10.666666666666666
+  },
+  "expense.link_to_budget->budget.budget_id": {
+   "ndv": 24,
+   "rows": 32,
+   "max": 3,
+   "avg": 1.3333333333333333
+  },
+  "income.link_to_member->member.member_id": {
+   "ndv": 31,
+   "rows": 33,
+   "max": 2,
+   "avg": 1.064516129032258
+  },
+  "member.zip->zip_code.zip_code": {
+   "ndv": 33,
+   "rows": 33,
+   "max": 1,
+   "avg": 1.0
+  },
+  "member.link_to_major->major.major_id": {
+   "ndv": 26,
+   "rows": 32,
+   "max": 3,
+   "avg": 1.2307692307692308
+  }
+ }
+}

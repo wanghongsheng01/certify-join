@@ -1,0 +1,2 @@
+inst,method,cost,cost_frac,n_queries,n_answerable,n_certified,coverage,fcr_card,fcr_sem,n_card,n_sem,n_ok,n_card_eps
+job,SJI(2603.04176),229455553,0.08846668196792858,103,79,52,0.6329113924050633,0.038461538461538464,0.0,2,0,50,0

@@ -1,0 +1,146 @@
+{
+ "summary": {
+  "inst": "bird_debit_card_specializing",
+  "n_tables": 5,
+  "n_cand": 17,
+  "n_verified": 5,
+  "n_verified_gold": 1,
+  "rev_expanding": 4,
+  "rev_max": 523,
+  "rev_avg_max": 35.714285714285715,
+  "rev_top": [
+   [
+    "transactions_1k.ProductID->products.ProductID",
+    523,
+    35.7
+   ],
+   [
+    "yearmonth.CustomerID->customers.CustomerID",
+    20,
+    12.5
+   ],
+   [
+    "transactions_1k.CustomerID->customers.CustomerID",
+    19,
+    1.9
+   ],
+   [
+    "transactions_1k.GasStationID->gasstations.GasStationID",
+    12,
+    2.3
+   ],
+   [
+    "transactions_1k.TransactionID->gasstations.GasStationID",
+    1,
+    1.0
+   ]
+  ],
+  "pairs_und_h2": 16,
+  "amb_und_h2": 6,
+  "fanonly_und_h2": 9,
+  "pairs_dir_h2": 4,
+  "amb_dir_h2": 1,
+  "pairs_und_h3": 20,
+  "amb_und_h3": 8,
+  "fanonly_und_h3": 13,
+  "pairs_dir_h3": 4,
+  "amb_dir_h3": 1,
+  "dir_amb_pairs": 1,
+  "dir_amb_role": 1,
+  "dir_amb_route": 0,
+  "n_probes": 1,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 1,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 12432,
+  "probe_secs": 0.0,
+  "n_queries": 1,
+  "n_answerable": 1,
+  "bfs3_n": 1,
+  "bfs3_ambiguous": 0,
+  "bfs3_answered": 1,
+  "bfs3_fanout": 0,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 1,
+  "prod2_n": 1,
+  "prod2_ambiguous": 0,
+  "prod2_answered": 1,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 1,
+  "prod3_n": 1,
+  "prod3_ambiguous": 0,
+  "prod3_answered": 1,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 1,
+  "prodc2_n": 1,
+  "prodc2_answered": 1,
+  "prodc2_tied_silent": 0,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 1,
+  "prodc2_correct_untied": 1,
+  "prodc3_n": 1,
+  "prodc3_answered": 1,
+  "prodc3_tied_silent": 0,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 1,
+  "prodc3_correct_untied": 1,
+  "steiner_n": 1,
+  "steiner_answered": 1,
+  "steiner_nongold": 0,
+  "steiner_correct": 1,
+  "multi_queries": 0,
+  "hops_steiner": 0,
+  "hops_union": 0,
+  "full_scan": 423050
+ },
+ "probes": [
+  {
+   "n": 1000,
+   "diff": 1000,
+   "diff_both": 956,
+   "src": "transactions_1k",
+   "dst": "gasstations",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 12432,
+   "gold1": false,
+   "gold2": false
+  }
+ ],
+ "rev": {
+  "yearmonth.CustomerID->customers.CustomerID": {
+   "ndv": 30566,
+   "rows": 383282,
+   "max": 20,
+   "avg": 12.53948832035595
+  },
+  "transactions_1k.TransactionID->gasstations.GasStationID": {
+   "ndv": 1000,
+   "rows": 1000,
+   "max": 1,
+   "avg": 1.0
+  },
+  "transactions_1k.CustomerID->customers.CustomerID": {
+   "ndv": 517,
+   "rows": 1000,
+   "max": 19,
+   "avg": 1.9342359767891684
+  },
+  "transactions_1k.GasStationID->gasstations.GasStationID": {
+   "ndv": 437,
+   "rows": 1000,
+   "max": 12,
+   "avg": 2.288329519450801
+  },
+  "transactions_1k.ProductID->products.ProductID": {
+   "ndv": 28,
+   "rows": 1000,
+   "max": 523,
+   "avg": 35.714285714285715
+  }
+ }
+}

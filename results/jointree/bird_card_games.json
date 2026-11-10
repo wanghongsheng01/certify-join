@@ -1,0 +1,274 @@
+{
+ "summary": {
+  "inst": "bird_card_games",
+  "n_tables": 6,
+  "n_cand": 54,
+  "n_verified": 20,
+  "n_verified_gold": 4,
+  "rev_expanding": 5,
+  "rev_max": 1700,
+  "rev_avg_max": 106.01119402985074,
+  "rev_top": [
+   [
+    "cards.setCode->sets.code",
+    1700,
+    106.0
+   ],
+   [
+    "rulings.uuid->cards.uuid",
+    27,
+    3.4
+   ],
+   [
+    "legalities.uuid->cards.uuid",
+    15,
+    7.7
+   ],
+   [
+    "foreign_data.uuid->cards.uuid",
+    10,
+    6.7
+   ],
+   [
+    "set_translations.setCode->sets.code",
+    10,
+    10.0
+   ]
+  ],
+  "pairs_und_h2": 30,
+  "amb_und_h2": 16,
+  "fanonly_und_h2": 1,
+  "pairs_dir_h2": 25,
+  "amb_dir_h2": 4,
+  "pairs_und_h3": 30,
+  "amb_und_h3": 16,
+  "fanonly_und_h3": 1,
+  "pairs_dir_h3": 25,
+  "amb_dir_h3": 4,
+  "dir_amb_pairs": 4,
+  "dir_amb_role": 4,
+  "dir_amb_route": 0,
+  "n_probes": 4,
+  "probe_equiv": 0,
+  "probe_equiv_mod_null": 0,
+  "probe_diverge": 4,
+  "probe_route": 0,
+  "probe_route_equiv": 0,
+  "probe_rows": 1719216,
+  "probe_secs": 0.02,
+  "n_queries": 4,
+  "n_answerable": 2,
+  "bfs3_n": 4,
+  "bfs3_ambiguous": 3,
+  "bfs3_answered": 4,
+  "bfs3_fanout": 0,
+  "bfs3_nongold": 0,
+  "bfs3_correct": 4,
+  "prod2_n": 4,
+  "prod2_ambiguous": 3,
+  "prod2_refused_amb": 3,
+  "prod2_answered": 1,
+  "prod2_fanout": 0,
+  "prod2_nongold": 0,
+  "prod2_correct": 1,
+  "prod3_n": 4,
+  "prod3_ambiguous": 3,
+  "prod3_refused_amb": 3,
+  "prod3_answered": 1,
+  "prod3_fanout": 0,
+  "prod3_nongold": 0,
+  "prod3_correct": 1,
+  "prodc2_n": 4,
+  "prodc2_answered": 4,
+  "prodc2_tied_silent": 3,
+  "prodc2_nongold": 0,
+  "prodc2_correct": 4,
+  "prodc2_correct_untied": 1,
+  "prodc3_n": 4,
+  "prodc3_answered": 4,
+  "prodc3_tied_silent": 3,
+  "prodc3_nongold": 0,
+  "prodc3_correct": 4,
+  "prodc3_correct_untied": 1,
+  "steiner_n": 4,
+  "steiner_answered": 4,
+  "steiner_nongold": 0,
+  "steiner_correct": 4,
+  "multi_queries": 0,
+  "hops_steiner": 0,
+  "hops_union": 0,
+  "full_scan": 803445
+ },
+ "probes": [
+  {
+   "n": 551,
+   "diff": 550,
+   "diff_both": 200,
+   "src": "sets",
+   "dst": "cards",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 114195,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 551,
+   "diff": 550,
+   "diff_both": 200,
+   "src": "sets",
+   "dst": "foreign_data",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 458923,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 551,
+   "diff": 550,
+   "diff_both": 200,
+   "src": "sets",
+   "dst": "legalities",
+   "hops": 1,
+   "kind": "role",
+   "rows_read": 856365,
+   "gold1": false,
+   "gold2": false
+  },
+  {
+   "n": 551,
+   "diff": 550,
+   "diff_both": 200,
+   "src": "sets",
+   "dst": "rulings",
+   "hops": 2,
+   "kind": "role",
+   "rows_read": 289733,
+   "gold1": false,
+   "gold2": false
+  }
+ ],
+ "rev": {
+  "foreign_data.uuid->cards.uuid": {
+   "ndv": 34056,
+   "rows": 229186,
+   "max": 10,
+   "avg": 6.729680526192154
+  },
+  "legalities.uuid->cards.uuid": {
+   "ndv": 55608,
+   "rows": 427907,
+   "max": 15,
+   "avg": 7.695061861602647
+  },
+  "set_translations.setCode->sets.code": {
+   "ndv": 121,
+   "rows": 1210,
+   "max": 10,
+   "avg": 10.0
+  },
+  "rulings.uuid->cards.uuid": {
+   "ndv": 26141,
+   "rows": 87769,
+   "max": 27,
+   "avg": 3.357522665544547
+  },
+  "cards.id->foreign_data.id": {
+   "ndv": 56822,
+   "rows": 56822,
+   "max": 1,
+   "avg": 1.0
+  },
+  "cards.id->legalities.id": {
+   "ndv": 56822,
+   "rows": 56822,
+   "max": 1,
+   "avg": 1.0
+  },
+  "cards.id->rulings.id": {
+   "ndv": 56822,
+   "rows": 56822,
+   "max": 1,
+   "avg": 1.0
+  },
+  "cards.setCode->sets.code": {
+   "ndv": 536,
+   "rows": 56822,
+   "max": 1700,
+   "avg": 106.01119402985074
+  },
+  "foreign_data.id->legalities.id": {
+   "ndv": 229186,
+   "rows": 229186,
+   "max": 1,
+   "avg": 1.0
+  },
+  "rulings.id->foreign_data.id": {
+   "ndv": 87769,
+   "rows": 87769,
+   "max": 1,
+   "avg": 1.0
+  },
+  "rulings.id->legalities.id": {
+   "ndv": 87769,
+   "rows": 87769,
+   "max": 1,
+   "avg": 1.0
+  },
+  "set_translations.id->cards.id": {
+   "ndv": 1210,
+   "rows": 1210,
+   "max": 1,
+   "avg": 1.0
+  },
+  "set_translations.id->foreign_data.id": {
+   "ndv": 1210,
+   "rows": 1210,
+   "max": 1,
+   "avg": 1.0
+  },
+  "set_translations.id->legalities.id": {
+   "ndv": 1210,
+   "rows": 1210,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.id->cards.id": {
+   "ndv": 551,
+   "rows": 551,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.id->foreign_data.id": {
+   "ndv": 551,
+   "rows": 551,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.id->legalities.id": {
+   "ndv": 551,
+   "rows": 551,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.mcmId->cards.id": {
+   "ndv": 201,
+   "rows": 201,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.mcmId->foreign_data.id": {
+   "ndv": 201,
+   "rows": 201,
+   "max": 1,
+   "avg": 1.0
+  },
+  "sets.mcmId->legalities.id": {
+   "ndv": 201,
+   "rows": 201,
+   "max": 1,
+   "avg": 1.0
+  }
+ }
+}
