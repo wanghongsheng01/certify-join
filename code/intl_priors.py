@@ -1,6 +1,7 @@
 """LLM priors of the international models (GPT-6.1 and Claude Opus 5.5 via the tokens1688 relay) for the public
 benchmark pools only; production pools (ent*) are never sent through this channel. Prompts are rebuilt from the base
-schema exactly as in backfill.py. Usage: TOKENS1688_API_KEY=... python code/intl_priors.py [model ...]"""
+schema exactly as in backfill.py. Usage: python code/intl_priors.py [model ...] with the relay key in the environment
+variable TOKENS1688_API_KEY."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import llm_prior as LP, policies as Pm
