@@ -1,6 +1,6 @@
 \begin{table}[t]
 \centering
-\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes.}
+\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes. The faster of the two methods is in bold.}
 \label{tab:maint}
 \small
 \setlength{\tabcolsep}{3pt}
@@ -8,12 +8,14 @@
 \toprule
 Inst. & Setting & Rows (\%) & Full (s) & Incr.\ (s) & Speedup \\
 \midrule
-TPC-H & SF1 & 0.038 & 11.5 & 2.40 & 4.8\xx \\
-TPC-H & SF10, same $\Delta$ & 0.004 & 34.9 & 3.02 & 11.6\xx \\
-TPC-H & SF10, prop.\ $\Delta$ & 0.037 & 65.3 & 19.01 & 3.4\xx \\
-TPC-DS & SF1 & 0.022 & 36.2 & 3.38 & 10.7\xx \\
-TPC-DS & SF10, same $\Delta$ & 0.003 & 139.7 & 5.21 & 26.8\xx \\
-TPC-DS & SF10, prop.\ $\Delta$ & 0.026 & 304.5 & 87.84 & 3.5\xx \\
+TPC-H & SF1 & 0.038 & {11.5} & \textbf{2.40} & 4.8\xx \\
+TPC-H & SF10, same $\Delta$ & 0.004 & {34.9} & \textbf{3.02} & 11.6\xx \\
+TPC-H & SF10, prop.\ $\Delta$ & 0.037 & {65.3} & \textbf{19.01} & 3.4\xx \\
+TPC-DS & SF1 & 0.022 & {36.2} & \textbf{3.38} & 10.7\xx \\
+TPC-DS & SF10, same $\Delta$ & 0.003 & {139.7} & \textbf{5.21} & 26.8\xx \\
+TPC-DS & SF10, prop.\ $\Delta$ & 0.026 & {304.5} & \textbf{87.84} & 3.5\xx \\
+\midrule
+\multicolumn{6}{@{}l}{Incr.\ faster: 6/6} \\
 \bottomrule
 \end{tabular}
 \end{table}

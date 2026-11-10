@@ -47,6 +47,35 @@ def pct(x, nd=1):
     return "--" if x is None or pd.isna(x) else f"{100 * x:.{nd}f}"
 
 
+def mark(cells, lower=True):
+    """Bold the best and underline the second-best printed value (ties share the rank); '--' cells are not ranked.
+    Returns the marked cells and their ranks (1 best, 2 second, 3 other, 0 unranked)."""
+    vals = []
+    for c in cells:
+        try:
+            vals.append(float(c.replace(",", "").replace("\\xx", "")))
+        except ValueError:
+            vals.append(None)
+    distinct = sorted({v for v in vals if v is not None}, reverse=not lower)
+    best = distinct[0] if distinct else None
+    second = distinct[1] if len(distinct) > 1 else None
+    out, ranks = [], []
+    for c, v in zip(cells, vals):
+        if v is None:
+            out.append(c); ranks.append(0)
+        elif v == best:
+            out.append(r"\textbf{" + c + "}"); ranks.append(1)
+        elif v == second:
+            out.append(r"\underline{" + c + "}"); ranks.append(2)
+        else:
+            out.append(c); ranks.append(3)
+    return out, ranks
+
+
+def count_cell(rs):
+    return f"{sum(r == 1 for r in rs)}/{sum(r == 2 for r in rs)}"
+
+
 def table_data():
     D = data_table()
     D = D[D.family != "Enterprise"]
@@ -79,7 +108,7 @@ def table_main(d):
     r10 = pd.read_csv(os.path.join(R, "decide_rows_sf10.csv"))
     r10["family"] = r10["inst"].map(fam)
     r10 = r10.set_index("family")
-    lv = pd.read_csv(os.path.join(R, "decide_live_rep3.csv"))
+    lv = pd.read_csv(os.path.join(R, "decide_live_quiet.csv"))
     lv["family"] = lv["inst"].map(fam)
     lv["kf"] = lv.keyfirst_plan_s + lv.keyfirst_probe_s
     lv["wl"] = lv.wlfull_plan_s + lv.wlfull_probe_s
@@ -89,12 +118,13 @@ def table_main(d):
     def sx(v):
         return "--" if v is None or pd.isna(v) else (f"{v:.2f}" if v < 10 else f"{v:.1f}")
     L = [r"\begin{table*}[t]", r"\centering",
-         r"\caption{Deciding the whole workload, and coverage at a 5\% budget. Rows: share of the rows read by per-edge verification of every candidate (atom cost model). Seconds: planning time measured live (minimum of 3 runs) plus the wall-clock time of the exact SQL probes that the method issues, each measured once when the instance was built. KeyFirst: per-edge verification that skips the inclusion check of edges with a false key; WL-Full: KeyFirst restricted to edges on workload paths of at most 3 hops. CJ = \sys, CJ+S = sampled inclusion. SF10 rows use the SF1 workload.}",
+         r"\caption{Deciding the whole workload, and coverage at a 5\% budget. Rows: share of the rows read by per-edge verification of every candidate (atom cost model). Seconds: planning time measured live (minimum of 3 runs) plus the wall-clock time of the exact SQL probes that the method issues, each measured once when the instance was built. KeyFirst: per-edge verification that skips the inclusion check of edges with a false key; WL-Full: KeyFirst restricted to edges on workload paths of at most 3 hops. CJ = \sys, CJ+S = sampled inclusion. SF10 rows use the SF1 workload. In each group, the best value of a row is in bold and the second best underlined (OPT, which knows every atom's truth, is not ranked); Best/2nd counts the rows.}",
          r"\label{tab:main}", r"\small", r"\setlength{\tabcolsep}{3.5pt}", r"\begin{tabular}{@{}lrrrrrrrrrrrrr@{}}", r"\toprule",
          r" & \multicolumn{4}{c}{Rows to decide (\%)} & \multicolumn{4}{c}{Seconds to decide} & \multicolumn{5}{c}{Coverage at 5\% budget (\%)} \\ \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-14}",
          r"Family & KeyFirst & WL-Full & CJ & CJ+S & Full & KeyFirst & WL-Full & CJ & Full & KeyFirst & CJ & CJ+S & OPT \\", r"\midrule"]
     fams = fams_present(d) + [f for f in ["TPC-H SF10", "TPC-DS SF10"] if f in r10.index]
     short = dict(SHORT, **{"TPC-H SF10": "TPC-H SF10", "TPC-DS SF10": "TPC-DS SF10"})
+    RK = {k: [[] for _ in range(n)] for k, n in (("rows", 4), ("sec", 4), ("cov", 4))}
     for f in fams:
         def c(m):
             try:
@@ -103,20 +133,31 @@ def table_main(d):
                 return None
         g = lambda ser, k: ser.loc[f, k] if f in ser.index else None
         if f in r10.index:
-            rowpart = f"{pct(g(r10, 'keyfirst_rows'))} & {pct(g(r10, 'wlfull_rows'))} & {pct(g(r10, 'cj_rows'))} & {pct(g(r10, 'cjs_rows'))}"
-            covpart = "-- & -- & -- & -- & --"
+            rcells = [pct(g(r10, 'keyfirst_rows')), pct(g(r10, 'wlfull_rows')), pct(g(r10, 'cj_rows')), pct(g(r10, 'cjs_rows'))]
+            ccells, opt = ["--"] * 4, "--"
         else:
-            rowpart = f"{pct(g(rws, 'keyfirst_rows'))} & {pct(g(rws, 'wlfull_rows'))} & {pct(inf.loc[(f, 'CertifyJoin'), 'cost_frac'])} & {pct(inf.loc[(f, 'CertifyJoin+S'), 'cost_frac'])}"
-            covpart = (f"{pct(c('Full(catalog order)'))} & {pct(exc.get((f, 'Full-KeyFirst')))} & {pct(c('CertifyJoin'))} & "
-                       f"{pct(c('CertifyJoin+S'))} & {pct(c('OPT(clairvoyant ILP)'))}")
+            rcells = [pct(g(rws, 'keyfirst_rows')), pct(g(rws, 'wlfull_rows')), pct(inf.loc[(f, 'CertifyJoin'), 'cost_frac']),
+                      pct(inf.loc[(f, 'CertifyJoin+S'), 'cost_frac'])]
+            ccells = [pct(c('Full(catalog order)')), pct(exc.get((f, 'Full-KeyFirst'))), pct(c('CertifyJoin')), pct(c('CertifyJoin+S'))]
+            opt = pct(c('OPT(clairvoyant ILP)'))
+        scells = [sx(g(sec, 'full_probe_s')), sx(g(sec, 'kf')), sx(g(sec, 'wl')), sx(g(sec, 'cj'))]
+        rcells, rr = mark(rcells, lower=True)
+        scells, sr = mark(scells, lower=True)
+        ccells, cr = mark(ccells, lower=False)
+        for k, rs in (("rows", rr), ("sec", sr), ("cov", cr)):
+            for i, r in enumerate(rs):
+                RK[k][i].append(r)
         if f == "TPC-H SF10":
             L.append(r"\midrule")
-        L.append(f"{short[f]} & {rowpart} & {sx(g(sec, 'full_probe_s'))} & {sx(g(sec, 'kf'))} & {sx(g(sec, 'wl'))} & {sx(g(sec, 'cj'))} & {covpart} \\\\")
+        L.append(f"{short[f]} & " + " & ".join(rcells + scells + ccells + [opt]) + r" \\")
+    L.append(r"\midrule")
+    L.append(r"Best/2nd & " + " & ".join([count_cell(x) for x in RK["rows"]] + [count_cell(x) for x in RK["sec"]] +
+                                         [count_cell(x) for x in RK["cov"]] + ["--"]) + r" \\")
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table*}"]
     open(os.path.join(TAB, "main.tex"), "w").write("\n".join(L) + "\n")
 
 
-ZM = [("DDL-declared", "DDL"), ("LLM-judge:ds-flash", "LLM: DeepSeek"), ("LLM-judge:glm", "LLM: GLM"), ("LLM-judge:kimi", "LLM: Kimi"),
+ZM = [("DDL-declared", "DDL"), ("LLM-judge:ds-flash", "LLM DeepSeek"), ("LLM-judge:glm", "LLM GLM"), ("LLM-judge:kimi", "LLM Kimi"),
       ("CardEst(HLL stats)", "CardEst"), ("Auto-BI(k-MCA, reimpl.)", "Auto-BI"), ("HoPF(reimpl.)", "HoPF"), ("SJI(2603.04176)", "SJI")]
 
 
@@ -126,23 +167,31 @@ def table_fcr(d, z):
     cj = pooled(a, ["family", "method"])
     fs = fams_present(d)
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data.}",
-         r"\label{tab:fcr}", r"\small", r"\setlength{\tabcolsep}{2.4pt}", r"\begin{tabular}{@{}l" + "r" * len(fs) + "@{}}", r"\toprule",
-         "Method & " + " & ".join(SHORT[f] for f in fs) + r" \\", r"\midrule"]
+         r"\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data. Per family, the lowest rate is in bold and the second lowest underlined (ties share the mark); B/2 counts a method's best and second-best families.}",
+         r"\label{tab:fcr}", r"\small", r"\setlength{\tabcolsep}{1.3pt}", r"\begin{tabular}{@{}l" + "r" * len(fs) + "r@{}}", r"\toprule",
+         "Method & " + " & ".join(SHORT[f] for f in fs) + r" & B/2 \\", r"\midrule"]
+    rows = []
     for m, lab in ZM:
         if m not in set(z.method):
             continue
         cells = []
         for f in fs:
             try:
-                r = q.loc[(f, m)]
-                cells.append(f"{pct(r.fcr_card)}")
+                cells.append(pct(q.loc[(f, m)].fcr_card))
             except KeyError:
                 cells.append("--")
-        L.append(lab + " & " + " & ".join(cells) + r" \\")
-    L.append(r"\midrule")
-    for m, lab in [("CertifyJoin", r"\sys"), ("CertifyJoin+S", r"\sysS")]:
-        L.append(lab + " & " + " & ".join(pct(cj.loc[(f, m)].fcr_card) for f in fs) + r" \\")
+        rows.append([lab, cells])
+    ours = [[lab, [pct(cj.loc[(f, m)].fcr_card) for f in fs]] for m, lab in [("CertifyJoin", r"\sys"), ("CertifyJoin+S", r"\sysS")]]
+    allr = rows + ours
+    ranks = [[0] * len(fs) for _ in allr]
+    for j in range(len(fs)):
+        col, rk = mark([r[1][j] for r in allr], lower=True)
+        for i in range(len(allr)):
+            allr[i][1][j] = col[i]; ranks[i][j] = rk[i]
+    for i, (lab, cells) in enumerate(allr):
+        if i == len(rows):
+            L.append(r"\midrule")
+        L.append(lab + " & " + " & ".join(cells) + f" & {count_cell(ranks[i])}" + r" \\")
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     open(os.path.join(TAB, "fcr.tex"), "w").write("\n".join(L) + "\n")
 
@@ -173,13 +222,18 @@ def table_maint():
                                        exp_trust=("exp_trust", "mean"), mism=("mism", "sum"))
     lab = {"_sf1": "SF1", "_sf10vol": "SF10, same $\\Delta$", "_sf10prop": "SF10, prop.\\ $\\Delta$"}
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes.}",
+         r"\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes. The faster of the two methods is in bold.}",
          r"\label{tab:maint}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}llrrrr@{}}", r"\toprule",
          r"Inst. & Setting & Rows (\%) & Full (s) & Incr.\ (s) & Speedup \\", r"\midrule"]
     g = g.reindex(sorted(g.index, key=lambda k: (k[0] != "tpch", ["_sf1", "_sf10vol", "_sf10prop"].index(k[1]))))
+    wins = []
     for (inst, tag), r in g.iterrows():
-        L.append(f"{inst.upper().replace('TPCDS', 'TPC-DS').replace('TPCH', 'TPC-H')} & {lab[tag]} & {100 * r.delta_rows / r.full_rows:.3f} & {r.full_s:.1f} & {r.delta_s:.2f} & "
+        tc, trk = mark([f"{r.full_s:.1f}", f"{r.delta_s:.2f}"], lower=True)
+        tc = [t.replace(r"\underline{", "{") for t in tc]  # two methods: only the faster one is marked
+        wins.append(trk[1] == 1)
+        L.append(f"{inst.upper().replace('TPCDS', 'TPC-DS').replace('TPCH', 'TPC-H')} & {lab[tag]} & {100 * r.delta_rows / r.full_rows:.3f} & {tc[0]} & {tc[1]} & "
                  f"{r.full_s / max(r.delta_s, 1e-9):.1f}\\xx \\\\")
+    L += [r"\midrule", f"\\multicolumn{{6}}{{@{{}}l}}{{Incr.\\ faster: {sum(wins)}/{len(wins)}}} \\\\"]
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     open(os.path.join(TAB, "maint.tex"), "w").write("\n".join(L) + "\n")
     g.to_csv(os.path.join(R, "maint_paper.csv"))
@@ -260,8 +314,10 @@ def table_prod():
             ("", "full verification (DB time)", f"{E['probe_db_seconds'] / 3600:.1f}\\,h"),
             ("", "of it on edges with false key", f"{100 * E['secs_I_on_U_false'] / E['probe_db_seconds']:.0f}\\%"),
             ("Deciding a workload on the ERP", "queries / answerable", f"{X['queries']} / {X['answerable']}"),
-            ("", "per-edge / KeyFirst / WL-Full (DB h)", f"{X['full_hours']:.1f} / {X['keyfirst_hours']:.1f} / {X['wlfull_hours']:.1f}"),
-            ("", "Certify-Join / Certify-Join+S (DB h)", f"{X['cj']['hours']:.2f} / {X['cjs_live']['hours']:.2f}"),
+            *[("", f"{lab} (DB hours)", v) for lab, v in zip(
+                ["per-edge verification", "KeyFirst", "WL-Full", "Certify-Join", "Certify-Join+S"],
+                mark([f"{X['full_hours']:.1f}", f"{X['keyfirst_hours']:.1f}", f"{X['wlfull_hours']:.1f}",
+                      f"{X['cj']['hours']:.2f}", f"{X['cjs_live']['hours']:.2f}"], lower=True)[0])],
             ("Platform whitelist", "candidates / verified", f"{G['cand']} / {G['verified']}"),
             ("", "LLM-accepted edges that validation rejects", f"{100 * J['ds-flash']['false_cert_rate']:.1f} / {100 * J['glm']['false_cert_rate']:.1f} / {100 * J['kimi']['false_cert_rate']:.1f}\\%"),
             ("Published workload", "cells / answerable / with join", f"{F['cells']:,} / {F['answered']:,} / {F['answered_with_join']}"),
@@ -269,7 +325,7 @@ def table_prod():
             ("", "rows to certify them", f"{100 * F['rows_ratio']:.2f}\\% of validation"),
             ("Direction-blind", "answers walking an edge in reverse", f"{F['cf']['answered_expanding_reverse']} ({100 * F['cf']['answered_expanding_reverse'] / F['cf']['answered']:.1f}\\%)"),
             ("", "median expansion of those walks", f"{F['cf']['expansion_median']:.0f}\\xx")]
-    L = [r"\begin{table}[t]", r"\centering", r"\caption{Production BI platform (aggregate counts only). LLM judges: DeepSeek / GLM / Kimi.}",
+    L = [r"\begin{table}[t]", r"\centering", r"\caption{Production BI platform (aggregate counts only). LLM judges: DeepSeek / GLM / Kimi. Deciding the workload: fewest database hours in bold, second fewest underlined.}",
          r"\label{tab:prod}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}lr@{}}", r"\toprule"]
     for a, b, c in rows:
         if a:
@@ -293,7 +349,7 @@ def table_scale():
     for n in sorted(g.n_tables.unique()):
         a = g[(g.n_tables == n) & (g.budget == "inf")].iloc[0]
         b = g[(g.n_tables == n) & (g.budget == "0.05")].iloc[0]
-        L.append(f"{n:,} & {a['edges']:,.0f} & {a['queries']:,.0f} & {a['wall']:,.1f} & {1000 * a['wall'] / a['probes']:,.0f} & {b['wall']:,.1f} & {100 * b['cov']:.1f} \\\\")
+        L.append(f"{n:,} & {a['edges']:,.0f} & {a['queries']:,.0f} & {a['wall']:,.1f} & {1000 * a['wall'] / a['probes']:,.1f} & {b['wall']:,.1f} & {100 * b['cov']:.1f} \\\\")
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     open(os.path.join(TAB, "scale.tex"), "w").write("\n".join(L) + "\n")
 

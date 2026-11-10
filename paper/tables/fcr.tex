@@ -1,24 +1,24 @@
 \begin{table}[t]
 \centering
-\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data.}
+\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data. Per family, the lowest rate is in bold and the second lowest underlined (ties share the mark); B/2 counts a method's best and second-best families.}
 \label{tab:fcr}
 \small
-\setlength{\tabcolsep}{2.4pt}
-\begin{tabular}{@{}lrrrrrr@{}}
+\setlength{\tabcolsep}{1.3pt}
+\begin{tabular}{@{}lrrrrrrr@{}}
 \toprule
-Method & TPC-H & TPC-H$^d$ & TPC-DS & TPC-DS$^d$ & JOB & BIRD \\
+Method & TPC-H & TPC-H$^d$ & TPC-DS & TPC-DS$^d$ & JOB & BIRD & B/2 \\
 \midrule
-DDL & 0.0 & 90.2 & 1.6 & 48.0 & 2.6 & 23.0 \\
-LLM: DeepSeek & 0.0 & 90.2 & 2.8 & 48.2 & 2.5 & 22.8 \\
-LLM: GLM & 0.0 & 90.2 & 21.8 & 58.4 & 3.6 & 29.9 \\
-LLM: Kimi & 0.0 & 90.2 & 21.8 & 58.4 & 6.0 & 26.2 \\
-CardEst & 0.0 & 20.0 & 11.2 & 38.6 & 24.0 & 8.5 \\
-Auto-BI & 0.0 & 89.6 & 0.0 & 31.5 & 0.0 & 32.3 \\
-HoPF & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
-SJI & 0.0 & 93.8 & 0.0 & 35.5 & 3.8 & 23.2 \\
+DDL & \textbf{0.0} & 90.2 & \underline{1.6} & 48.0 & 2.6 & 23.0 & 1/1 \\
+LLM DeepSeek & \textbf{0.0} & 90.2 & 2.8 & 48.2 & 2.5 & 22.8 & 1/0 \\
+LLM GLM & \textbf{0.0} & 90.2 & 21.8 & 58.4 & 3.6 & 29.9 & 1/0 \\
+LLM Kimi & \textbf{0.0} & 90.2 & 21.8 & 58.4 & 6.0 & 26.2 & 1/0 \\
+CardEst & \textbf{0.0} & \underline{20.0} & 11.2 & 38.6 & 24.0 & 8.5 & 1/1 \\
+Auto-BI & \textbf{0.0} & 89.6 & \textbf{0.0} & 31.5 & \textbf{0.0} & 32.3 & 3/0 \\
+HoPF & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & 6/0 \\
+SJI & \textbf{0.0} & 93.8 & \textbf{0.0} & 35.5 & 3.8 & 23.2 & 2/0 \\
 \midrule
-\sys & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
-\sysS & 0.0 & 0.0 & 0.0 & 2.2 & 2.4 & 1.6 \\
+\sys & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & 6/0 \\
+\sysS & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \underline{2.2} & \underline{2.4} & \underline{1.6} & 3/3 \\
 \bottomrule
 \end{tabular}
 \end{table}
