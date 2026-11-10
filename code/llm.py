@@ -9,7 +9,11 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 # Endpoints verified on 2026-11-03: GLM plus-tier models return "balance insufficient", the second GLM key
 # only reaches glm-4.5-air, and kimi-k2.6 accepts temperature 0.6 only.
 MODELS = {"deepseek": ("deepseek", "deepseek-chat"), "ds-flash": ("deepseek", "deepseek-v4-flash"), "deepseek-r": ("deepseek", "deepseek-reasoner"),
-          "glm": ("glm", "glm-4.5-flash"), "glm-air": ("glm2", "glm-4.5-air"), "kimi": ("kimi", "kimi-k2.6")}
+          "glm": ("glm", "glm-4.5-flash"), "glm-air": ("glm2", "glm-4.5-air"), "kimi": ("kimi", "kimi-k2.6"),
+          "gpt": ("tokens1688", "gpt-6.1-sol"), "claude": ("tokens1688", "claude-opus-5-5")}
+# international models through the OpenAI-compatible tokens1688 relay (added 2026-11-11); its key is read from the
+# environment (TOKENS1688_API_KEY), set by the caller from the system keychain, and is never stored in a file
+RELAY = {"tokens1688": "https://www.tokens1688.com/v1"}
 FIXED = {"glm": {"thinking": {"type": "disabled"}}, "kimi": {"thinking": {"type": "disabled"}, "temperature": 0.6},
          "glm-air": {"thinking": {"type": "disabled"}}}
 _lock = threading.Lock()
@@ -25,7 +29,7 @@ def chat(model, messages, temperature=0.0, max_tokens=512, retries=8, **kw):
     path = os.path.join(CACHE_DIR, key[:2], key + ".json")
     if os.path.exists(path):
         return json.load(open(path))
-    cfg = KEYS[prov]
+    cfg = ({"base_url": RELAY[prov], "api_key": os.environ["TOKENS1688_API_KEY"]} if prov in RELAY else KEYS[prov])
     err = None
     for i in range(retries):
         try:
@@ -41,6 +45,9 @@ def chat(model, messages, temperature=0.0, max_tokens=512, retries=8, **kw):
                         f.write(json.dumps({"t": time.time(), "model": body["model"], **out["usage"]}) + "\n")
                 return out
             err = f"{r.status_code} {r.text[:200]}"
+            if "temperature` is deprecated" in r.text:  # some relay backends reject the parameter: use the model default
+                body.pop("temperature", None)
+                continue
         except Exception as e:
             err = repr(e)
         time.sleep(min(60, 2 ** i) + (5 if "429" in str(err) else 0))

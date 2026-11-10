@@ -13,10 +13,13 @@ FIG, TAB = os.path.join(PAPER, "figs"), os.path.join(PAPER, "tables")
 FAMS = ["TPC-H", "TPC-H dirty", "TPC-DS", "TPC-DS dirty", "JOB/IMDB", "BIRD (11 DBs)"]
 SHORT = {"TPC-H": "TPC-H", "TPC-H dirty": "TPC-H$^d$", "TPC-DS": "TPC-DS", "TPC-DS dirty": "TPC-DS$^d$",
          "JOB/IMDB": "JOB", "BIRD (11 DBs)": "BIRD"}
-# categorical palette (fixed order, reference palette of the dataviz skill)
-PAL = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
-plt.rcParams.update({"font.size": 7, "axes.linewidth": 0.5, "xtick.major.width": 0.5, "ytick.major.width": 0.5,
-                     "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42, "font.family": "serif"})
+# colour-blind-safe Okabe-Ito palette; our methods always use the two warm highlight colours, baselines muted hues
+OURS = {"CertifyJoin": "#D55E00", "CertifyJoin+S": "#E69F00"}
+PAL = ["#0072B2", "#56B4E9", "#009E73", "#CC79A7", "#999999", "#000000", "#F0E442"]
+plt.rcParams.update({"font.size": 8, "axes.linewidth": 0.5, "xtick.major.width": 0.5, "ytick.major.width": 0.5,
+                     "axes.spines.top": False, "axes.spines.right": False, "pdf.fonttype": 42,
+                     "font.family": "serif", "font.serif": ["Times New Roman", "Times", "STIXGeneral"],
+                     "mathtext.fontset": "stix"})  # same face as the IEEEtran body text
 
 
 def fams_present(d):
@@ -116,7 +119,7 @@ def table_main(d):
     sec = lv.groupby("family")[["full_probe_s", "kf", "wl", "cj"]].sum()
 
     def sx(v):
-        return "--" if v is None or pd.isna(v) else (f"{v:.2f}" if v < 10 else f"{v:.1f}")
+        return "--" if v is None or pd.isna(v) else f"{v:.2f}"
     L = [r"\begin{table*}[t]", r"\centering",
          r"\caption{Deciding the whole workload, and coverage at a 5\% budget. Rows: share of the rows read by per-edge verification of every candidate (atom cost model). Seconds: live planning time (minimum of 3 runs) plus the measured time of each exact SQL probe the method issues. KeyFirst: per-edge verification that skips the inclusion check of edges with a false key; WL-Full: KeyFirst restricted to edges on workload paths of at most 3 hops. CJ = \sys, CJ+S = sampled inclusion. SF10 rows use the SF1 workload. In each group, the best value of a row is in bold and the second best underlined (OPT, which knows every atom's truth, is not ranked); Best/2nd counts the rows.}",
          r"\label{tab:main}", r"\small", r"\setlength{\tabcolsep}{3.5pt}", r"\begin{tabular}{@{}lrrrrrrrrrrrrr@{}}", r"\toprule",
@@ -157,7 +160,8 @@ def table_main(d):
     open(os.path.join(TAB, "main.tex"), "w").write("\n".join(L) + "\n")
 
 
-ZM = [("DDL-declared", "DDL"), ("LLM-judge:ds-flash", "LLM DeepSeek"), ("LLM-judge:glm", "LLM GLM"), ("LLM-judge:kimi", "LLM Kimi"),
+ZM = [("DDL-declared", "DDL"), ("LLM-judge:gpt", "LLM GPT"), ("LLM-judge:claude", "LLM Claude"),
+      ("LLM-judge:ds-flash", "LLM DeepSeek"), ("LLM-judge:glm", "LLM GLM"), ("LLM-judge:kimi", "LLM Kimi"),
       ("CardEst(HLL stats)", "CardEst"), ("Auto-BI(k-MCA, reimpl.)", "Auto-BI"), ("HoPF(reimpl.)", "HoPF"), ("SJI(2603.04176)", "SJI")]
 
 
@@ -228,7 +232,7 @@ def table_maint():
     g = g.reindex(sorted(g.index, key=lambda k: (k[0] != "tpch", ["_sf1", "_sf10vol", "_sf10prop"].index(k[1]))))
     wins = []
     for (inst, tag), r in g.iterrows():
-        tc, trk = mark([f"{r.full_s:.1f}", f"{r.delta_s:.2f}"], lower=True)
+        tc, trk = mark([f"{r.full_s:.2f}", f"{r.delta_s:.2f}"], lower=True)
         tc = [t.replace(r"\underline{", "{") for t in tc]  # two methods: only the faster one is marked
         wins.append(trk[1] == 1)
         L.append(f"{inst.upper().replace('TPCDS', 'TPC-DS').replace('TPCH', 'TPC-H')} & {lab[tag]} & {100 * r.delta_rows / r.full_rows:.3f} & {tc[0]} & {tc[1]} & "
@@ -248,10 +252,11 @@ def fig_coverage(d):
     a["budget"] = a["budget"].astype(float)
     cov = pooled(a, ["family", "method", "budget"])["coverage"]
     fs = fams_present(d)
-    ms = [("CertifyJoin", "Certify-Join"), ("CertifyJoin+S", "Certify-Join+S"), ("OPT(clairvoyant ILP)", "OPT"),
-          ("Full(catalog order)", "Full"), ("KeyCoverage", "KeyCoverage"), ("Random", "Random"),
-          ("Full-KeyFirst", "KeyFirst")]
-    fig, axs = plt.subplots(1, len(fs), figsize=(7.16, 1.55), sharey=True)
+    ms = [("CertifyJoin", "Certify-Join"), ("CertifyJoin+S", "Certify-Join+S"), ("OPT(clairvoyant ILP)", "OPT (clairvoyant)"),
+          ("Full(catalog order)", "Full"), ("Full-KeyFirst", "KeyFirst"), ("KeyCoverage", "KeyCoverage"), ("Random", "Random")]
+    col = {"OPT(clairvoyant ILP)": "#000000", "Full(catalog order)": "#0072B2", "Full-KeyFirst": "#56B4E9",
+           "KeyCoverage": "#009E73", "Random": "#999999", **OURS}
+    fig, axs = plt.subplots(1, len(fs), figsize=(7.16, 1.55), sharey=True, gridspec_kw=dict(wspace=0.3))
     for ax, f in zip(axs, fs):
         for i, (m, lab) in enumerate(ms):
             try:
@@ -259,78 +264,82 @@ def fig_coverage(d):
             except KeyError:
                 continue
             ls = {"OPT(clairvoyant ILP)": (0, (3, 1.5)), "Random": (0, (1, 1)), "Full-KeyFirst": (0, (5, 1, 1, 1))}.get(m, "-")
-            ax.plot(s.index, 100 * s.values, linestyle=ls, color=PAL[i], lw=1.3, label=lab)
+            ours = m in OURS
+            ax.plot(s.index, 100 * s.values, linestyle=ls, color=col[m], lw=2.0 if ours else 0.9, zorder=3 if ours else 2,
+                    label=lab)
         ax.set_xscale("log")
         ax.set_xticks([0.01, 0.1, 1.0]); ax.set_xticklabels(["1%", "10%", "100%"]); ax.minorticks_off()
-        ax.set_title(SHORT[f].replace("$^d$", " dirty"), fontsize=7)
+        ax.set_title(SHORT[f].replace("$^d$", " dirty"), fontsize=8)
         ax.grid(axis="y", lw=0.3, color="#dddddd")
         ax.set_ylim(0, 102)
     axs[0].set_ylabel("Coverage (%)")
     h, l = axs[0].get_legend_handles_labels()
-    fig.legend(h, l, loc="lower center", ncol=len(ms), frameon=False, bbox_to_anchor=(0.5, 1.0), fontsize=6.5)
-    fig.text(0.5, -0.10, "Probe budget (fraction of the cost of full verification)", ha="center", fontsize=7)
+    fig.legend(h, l, loc="lower center", ncol=len(ms), frameon=False, bbox_to_anchor=(0.5, 1.0), fontsize=7)
+    fig.text(0.5, -0.10, "Probe budget (fraction of the cost of full verification)", ha="center", fontsize=8)
     fig.savefig(os.path.join(FIG, "coverage.pdf"), bbox_inches="tight")
 
 
 def fig1(d, z):
+    """Unsafe certified trees per family: one bar per baseline (the five LLM judges as one bar, median with min-max
+    whisker), Certify-Join as highlighted markers at its value (0 everywhere)."""
     q = pooled(z, ["family", "method"])
     a = d[(d.cost_model == "atom") & (d.budget != "inf")]
     cj = pooled(a, ["family", "method"])
     fs = [f for f in ["BIRD (11 DBs)", "JOB/IMDB", "TPC-H dirty", "TPC-DS dirty"] if f in set(d.family)]
-    ms = [m for m in ["DDL-declared", "LLM-judge:ds-flash", "LLM-judge:glm", "LLM-judge:kimi", "CardEst(HLL stats)",
-                      "Auto-BI(k-MCA, reimpl.)", "SJI(2603.04176)", "HoPF(reimpl.)"] if m in set(z.method)]
-    lab = dict(ZM)
-    fig, ax = plt.subplots(figsize=(3.4, 1.65))
-    nb = len(ms) + 1
+    judges = [m for m in ["LLM-judge:gpt", "LLM-judge:claude", "LLM-judge:ds-flash", "LLM-judge:glm", "LLM-judge:kimi"]
+              if m in set(z.method)]
+    groups = [("DDL", ["DDL-declared"]), (f"LLM judges ({len(judges)})", judges), ("CardEst", ["CardEst(HLL stats)"]),
+              ("Auto-BI", ["Auto-BI(k-MCA, reimpl.)"]), ("SJI", ["SJI(2603.04176)"]), ("HoPF", ["HoPF(reimpl.)"])]
+    cols = ["#0072B2", "#56B4E9", "#009E73", "#CC79A7", "#999999", "#000000"]
+    fig, ax = plt.subplots(figsize=(3.4, 1.75))
+    nb = len(groups) + 1
     w = 0.8 / nb
-    for i, m in enumerate(ms + ["CertifyJoin"]):
-        ys = []
+    for i, (lab, ms) in enumerate(groups):
+        ys, lo, hi = [], [], []
         for f in fs:
-            try:
-                ys.append(100 * (cj.loc[(f, m)].fcr_card if m == "CertifyJoin" else q.loc[(f, m)].fcr_card))
-            except KeyError:
-                ys.append(0)
+            v = sorted(100 * q.loc[(f, m)].fcr_card for m in ms if (f, m) in q.index)
+            med = v[len(v) // 2] if v else 0
+            ys.append(med); lo.append(med - (v[0] if v else 0)); hi.append((v[-1] if v else 0) - med)
         xs = [j + (i - (nb - 1) / 2) * w for j in range(len(fs))]
-        ax.bar(xs, ys, width=w * 0.92, color=PAL[i % 8] if m != "CertifyJoin" else "#222222",
-               label="Certify-Join" if m == "CertifyJoin" else lab[m])
-    ax.set_xticks(range(len(fs))); ax.set_xticklabels([SHORT[f].replace("$^d$", "\ndirty") for f in fs])
+        ax.bar(xs, ys, width=w * 0.9, color=cols[i], label=lab,
+               yerr=[lo, hi] if len(ms) > 1 else None, error_kw=dict(lw=0.6, capsize=1.2, ecolor="#333333"))
+        for x, y in zip(xs, ys):  # a zero-height bar stays visible as a short tick on the axis
+            if y == 0:
+                ax.plot([x - w * 0.4, x + w * 0.4], [0.6, 0.6], color=cols[i], lw=1.6, solid_capstyle="butt")
+    xs = [j + (nb - 1 - (nb - 1) / 2) * w for j in range(len(fs))]
+    ys = [100 * cj.loc[(f, "CertifyJoin")].fcr_card for f in fs]
+    ax.scatter(xs, [y + 1.5 for y in ys], marker="v", s=14, color=OURS["CertifyJoin"], zorder=4, label="Certify-Join (0)")
+    for x, y in zip(xs, ys):
+        ax.text(x, y + 5, f"{y:.0f}", ha="center", va="bottom", fontsize=6.5, color="#000000", fontweight="bold")
+    ax.set_xticks(range(len(fs))); ax.set_xticklabels([SHORT[f].replace("$^d$", " dirty") for f in fs])
     ax.set_ylabel("Unsafe certified trees (%)")
+    ax.set_ylim(0, 100)
     ax.grid(axis="y", lw=0.3, color="#dddddd"); ax.set_axisbelow(True)
-    ax.legend(ncol=4, frameon=False, fontsize=5.6, loc="lower center", bbox_to_anchor=(0.5, 1.0), handlelength=1.0, columnspacing=0.8)
+    ax.legend(ncol=4, frameon=False, fontsize=6.5, loc="lower center", bbox_to_anchor=(0.5, 1.0), handlelength=1.0,
+              columnspacing=0.8)
     fig.savefig(os.path.join(FIG, "fig1.pdf"), bbox_inches="tight")
 
 
 def table_prod():
-    """Production case (RQ7): only aggregate counts from the withheld instance (results/*_summary.json)."""
+    """Production case (RQ7): deciding a workload on the withheld ERP database; aggregate figures only
+    (results/erp_endtoend.json). The platform counts of RQ7 are stated in the text."""
     if not os.path.exists(os.path.join(R, "erp_endtoend.json")):  # public artifact: the production summaries are withheld
         return
-    E = json.load(open(os.path.join(R, "erp_full_summary.json")))
-    G = json.load(open(os.path.join(R, "registry_summary.json")))["ALL"]
-    J = json.load(open(os.path.join(R, "registry_judges.json")))
-    F = json.load(open(os.path.join(R, "fanout_summary.json")))["per_warehouse"]["ALL"]
     X = json.load(open(os.path.join(R, "erp_endtoend.json")))
-    rows = [("ERP database", "tables / rows", f"{E['tables']} / {E['rows'] / 1e6:.1f}M"),
-            ("", "candidates / safe", f"{E['cand']} / {E['safe']} ({100 * E['safe'] / E['cand']:.1f}\\%)"),
-            ("", "full verification (DB time)", f"{E['probe_db_seconds'] / 3600:.1f}\\,h"),
-            ("", "of it on edges with false key", f"{100 * E['secs_I_on_U_false'] / E['probe_db_seconds']:.0f}\\%"),
-            ("Deciding a workload on the ERP", "queries / answerable", f"{X['queries']} / {X['answerable']}"),
-            *[("", f"{lab} (DB hours)", v) for lab, v in zip(
-                ["per-edge verification", "KeyFirst", "WL-Full", "Certify-Join", "Certify-Join+S"],
-                mark([f"{X['full_hours']:.1f}", f"{X['keyfirst_hours']:.1f}", f"{X['wlfull_hours']:.1f}",
-                      f"{X['cj']['hours']:.2f}", f"{X['cjs_live']['hours']:.2f}"], lower=True)[0])],
-            ("Platform whitelist", "candidates / verified", f"{G['cand']} / {G['verified']}"),
-            ("", "LLM-accepted edges that validation rejects", f"{100 * J['ds-flash']['false_cert_rate']:.1f} / {100 * J['glm']['false_cert_rate']:.1f} / {100 * J['kimi']['false_cert_rate']:.1f}\\%"),
-            ("Published workload", "cells / answerable / with join", f"{F['cells']:,} / {F['answered']:,} / {F['answered_with_join']}"),
-            ("", "verified edges used / key atoms", f"{F['workload_edges']} of {F['published_edges']} / {F['workload_U_atoms']}"),
-            ("", "rows to certify them", f"{100 * F['rows_ratio']:.2f}\\% of validation"),
-            ("Direction-blind", "answers walking an edge in reverse", f"{F['cf']['answered_expanding_reverse']} ({100 * F['cf']['answered_expanding_reverse'] / F['cf']['answered']:.1f}\\%)"),
-            ("", "median expansion of those walks", f"{F['cf']['expansion_median']:.0f}\\xx")]
-    L = [r"\begin{table}[t]", r"\centering", r"\caption{Production BI platform (aggregate counts only). LLM judges: DeepSeek / GLM / Kimi. Deciding the workload: fewest database hours in bold, second fewest underlined.}",
-         r"\label{tab:prod}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}lr@{}}", r"\toprule"]
-    for a, b, c in rows:
-        if a:
-            L.append(("" if L[-1] == r"\toprule" else r"\addlinespace[2pt]") + r"\multicolumn{2}{@{}l}{\textit{" + a + "}} \\\\")
-        L.append(f"\\quad {b} & {c} \\\\")
+    full = X["full_hours"]
+    meth = [("Per-edge verification", full, "100.0"), ("KeyFirst", X["keyfirst_hours"], "100.0"),
+            ("WL-Full", X["wlfull_hours"], "100.0"), (r"\sys", X["cj"]["hours"], f"{100 * X['cj']['coverage']:.1f}"),
+            (r"\sysS", X["cjs_live"]["hours"], f"{100 * X['cjs']['coverage']:.1f}")]
+    hrs, _ = mark([f"{h:.2f}" for _, h, _ in meth], lower=True)
+    shr, _ = mark([f"{100 * h / full:.1f}" for _, h, _ in meth], lower=True)
+    L = [r"\begin{table}[t]", r"\centering",
+         r"\caption{Deciding a workload on the production ERP database (36 tables, 327.6M rows, 909 candidate edges; "
+         f"{X['queries']} queries, {X['answerable']} answerable). " + r"\sys and \sysS need the fewest database hours. "
+         r"Coverage: answerable queries certified. Fewest hours in bold, second fewest underlined.}",
+         r"\label{tab:prod}", r"\small", r"\setlength{\tabcolsep}{4pt}", r"\begin{tabular}{@{}lrrr@{}}", r"\toprule",
+         r"Method & DB hours & \% of per-edge & Cov.\ (\%) \\", r"\midrule"]
+    for (lab, _, cov), h, sh in zip(meth, hrs, shr):
+        L.append(f"{lab} & {h} & {sh} & {cov} \\\\")
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     open(os.path.join(TAB, "prod.tex"), "w").write("\n".join(L) + "\n")
 

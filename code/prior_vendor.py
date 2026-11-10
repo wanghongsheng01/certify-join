@@ -1,4 +1,5 @@
-"""RQ3 robustness: Certify-Join with priors from each LLM vendor (DeepSeek-v4-flash, GLM-4.5-flash, Kimi-k2.6).
+"""RQ3 robustness: Certify-Join with priors from each LLM vendor (DeepSeek-v4-flash, GLM-4.5-flash, Kimi-k2.6, and
+GPT-6.1 and Claude Opus 5.5 via the tokens1688 relay).
 Writes results/prior_vendor.csv (instance x prior x budget, atom cost model)."""
 import csv, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +12,7 @@ if __name__ == "__main__":
     w = None
     with open(os.path.join(ROOT, "results", "prior_vendor.csv"), "w", newline="") as fh:
         for name in names:
-            for model in ["ds-flash", "glm", "kimi"]:
+            for model in ["ds-flash", "glm", "kimi", "gpt", "claude"]:
                 P, st = load(name, prior=model)
                 if not P.rec["prior"].get(model):
                     continue

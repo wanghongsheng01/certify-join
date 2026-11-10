@@ -12,6 +12,7 @@ and the technical report with the full proofs (`techreport_proofs.pdf`).
 | `code/atoms.py` | Exact key and inclusion probes (SQL on DuckDB), including temporal (SCD) atoms |
 | `code/instances.py`, `code/prepare.py`, `code/stats.py` | Instance loaders, the candidate generator, defect injection, pool construction, catalog statistics |
 | `code/llm.py`, `code/llm_prior.py` | Cached OpenAI-compatible client and the LLM priors (schema metadata only) |
+| `code/intl_priors.py`, `code/zero_rerun.py` | Priors of GPT-6.1 Sol and Claude Opus 5.5 through the OpenAI-compatible tokens1688 relay (public benchmarks only; key from the environment variable `TOKENS1688_API_KEY`), and the zero-probe baselines recomputed with all five LLM judges |
 | `code/run_pilot.py` | Coverage-budget experiments and zero-probe baselines (RQ1-RQ3) |
 | `code/baseline_sji.py`, `code/baseline_autobi.py`, `code/baseline_hopf.py`, `code/baseline_profilers.py` | Reimplementations of SJI (arXiv 2603.04176), Auto-BI (PVLDB 2023), HoPF (JIIS 2019), and SPIDER+HyUCC via Desbordante |
 | `code/calib_uniform.py` | Calibration of sampled inclusion certificates (RQ4) |
