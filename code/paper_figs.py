@@ -126,7 +126,7 @@ def table_fcr(d, z):
     cj = pooled(a, ["family", "method"])
     fs = fams_present(d)
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data. --: not run on this family.}",
+         r"\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data.}",
          r"\label{tab:fcr}", r"\small", r"\setlength{\tabcolsep}{2.4pt}", r"\begin{tabular}{@{}l" + "r" * len(fs) + "@{}}", r"\toprule",
          "Method & " + " & ".join(SHORT[f] for f in fs) + r" \\", r"\midrule"]
     for m, lab in ZM:

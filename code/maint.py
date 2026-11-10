@@ -130,7 +130,9 @@ def run(name, n_batch=30, k_period=10, seed=0, app_frac=2e-3, dim_frac=1e-3, p_d
             cert_edges |= t
     atoms = sorted({a for e in cert_edges for a in P.ea[e]})
     src = data or os.path.join(I.DATA, name + ".duckdb")
-    dst = src[:-len(".duckdb")] + f"_maint{tag}_s{seed}.duckdb" if data else os.path.join(I.DATA, name + "_maint.duckdb")
+    # a fresh copy per run: a write-ahead log left by an interrupted run must never be replayed onto the new copy
+    dst = (src[:-len(".duckdb")] + f"_maint{tag}_s{seed}_{os.getpid()}.duckdb" if data
+           else os.path.join(I.DATA, f"{name}_maint{tag}_s{seed}_{os.getpid()}.duckdb"))
     shutil.copy(src, dst)
     con = duckdb.connect(dst)
     cols = {t: [r[0] for r in con.execute(f'DESCRIBE "{t}"').fetchall()] for (t,) in con.execute("SHOW TABLES").fetchall()}
@@ -412,7 +414,9 @@ def run(name, n_batch=30, k_period=10, seed=0, app_frac=2e-3, dim_frac=1e-3, p_d
         for m in belief:
             expo[m] += queries_unsafe(belief[m], truth)
         mism = sum(belief["delta"][a] != truth[a] for a in atoms)
+        mism_atoms = [(a, belief["delta"][a], truth[a], orph.get(a)) for a in atoms if belief["delta"][a] != truth[a]]
         log.append(dict(batch=b, events=events, n_false=sum(not v for v in truth.values()), delta_mismatch=mism,
+                        mism_atoms=mism_atoms,
                         full_rows=full_c, delta_rows=dc, full_secs=round(full_s, 3), delta_secs=round(secs["delta"][-1], 4)))
         print(name, b, events, "false atoms", log[-1]["n_false"], "delta mismatch", mism, flush=True)
     con.close()

@@ -1,0 +1,2 @@
+inst,method,cost,cost_frac,n_queries,n_answerable,n_certified,coverage,fcr_card,fcr_sem,n_card,n_sem,n_ok,n_card_eps,cost_model,rows_read,secs_profile,secs_hopf,n_fk,n_fk_in_pool,n_fk_outside_pool,n_fk_gold,n_gold,n_pk,n_pk_correct,n_pkcc,n_pkcc_eval,n_inds
+job,HoPF(reimpl.),74190187,1.0,103,79,52,0.34177215189873417,0.0,0.4807692307692308,0,25,27,0,scan,74190187,652.728,114.537,29,20,9,16,25,21,21,1,1,524

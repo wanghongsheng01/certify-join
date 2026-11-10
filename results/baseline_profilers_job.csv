@@ -1,0 +1,5 @@
+instance,full_cost,full_scan,full_verify_secs,n_edges,n_safe,algorithm,seconds,rows_read,ratio_full_cost,ratio_full_scan,extract_secs,rows_read_as_run,secs_ratio_full_verify,n_edges_certified,n_temporal_unsupported,agreement,atom_agreement,n_atom_mismatch,coverage,fcr_card,fcr_sem,n_certified_q,n_answerable,n_ok,n_card,n_sem,n_queries
+job,2593694574,74190187,18.928,182,88,Spider (unary IND),159.207,74190187,0.02860405683217503,1.0,,,,,,,,,,,,,,,,,
+job,2593694574,74190187,18.928,182,88,HyUCC (UCC),493.52,74190187,0.02860405683217503,1.0,,,,,,,,,,,,,,,,,
+job,2593694574,74190187,18.928,182,88,"Mind (n-ary IND, composite cand.)",0.001,0,0.0,0.0,,,,,,,,,,,,,,,,,
+job,2593694574,74190187,18.928,182,88,SPIDER+UCC (Desbordante),652.728,74190187,0.02860405683217503,1.0,5.623,148380374,34.484776821765266,88,0,1.0,1.0,0,1.0,0.0,0.17708333333333334,96,79,79,0,17,103
