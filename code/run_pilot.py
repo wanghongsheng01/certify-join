@@ -17,7 +17,11 @@ def load(name, prior="ds-flash"):
     rec = json.load(open(os.path.join(ROOT, "results", "pool", name + ".json")))
     st_path = os.path.join(ROOT, "_private" if name.startswith("ent") else "results", "stats", name + ".json")
     st = json.load(open(st_path)) if os.path.exists(st_path) else None
-    return Pm.Pool(rec, prior_model=prior), st
+    P = Pm.Pool(rec, prior_model=prior)
+    ex = os.path.join(ROOT, "results", "sampled_exec", name + ".json")
+    if os.environ.get("SAMPLE_EXEC", "1") == "1" and os.path.exists(ex):
+        P.exec_hits = {k: v["hit"] for k, v in json.load(open(ex)).items()}
+    return P, st
 
 
 # ---------------------------------------------------------------------- zero-probe baselines

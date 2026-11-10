@@ -15,6 +15,8 @@ and the technical report with the full proofs (`techreport_proofs.pdf`).
 | `code/run_pilot.py` | Coverage-budget experiments and zero-probe baselines (RQ1-RQ3) |
 | `code/baseline_sji.py`, `code/baseline_autobi.py`, `code/baseline_hopf.py`, `code/baseline_profilers.py` | Reimplementations of SJI (arXiv 2603.04176), Auto-BI (PVLDB 2023), HoPF (JIIS 2019), and SPIDER+HyUCC via Desbordante |
 | `code/calib_uniform.py` | Calibration of sampled inclusion certificates (RQ4) |
+| `code/sampled_exec.py`, `code/rerun_cjs.py` | Executed uniform row-identifier samples for every sampled inclusion atom (five per atom, `results/sampled_exec/`), and the Certify-Join+S rows of the budget experiments recomputed from them |
+| `code/synth_deep.py` | Ablation of the inference rules and the probe order on subtype hierarchies of depth 1-5 with shared keys (RQ3) |
 | `code/maint.py`, `code/maint_scale.py`, `code/sf10_augment.py` | Certificate maintenance at SF1 and SF10 (RQ5) |
 | `code/synth_scale.py` | Planning time on synthetic schemas with 10^2-10^4 tables (RQ6) |
 | `code/prior_vendor.py` | Certify-Join with priors from each LLM vendor (RQ3) |
@@ -30,7 +32,9 @@ python code/gen_tpc.py                       # TPC-H / TPC-DS SF1 (DuckDB dbgen/
 export BIRD_DEV=<path to BIRD dev_20240627>  # BIRD dev databases (https://bird-bench.github.io/)
 python code/prepare.py tpch tpcds bird dirty # pools: candidates, exact atoms, LLM priors (needs llm_keys.json)
 python code/stats.py
-python code/run_pilot.py                     # RQ1-RQ3
+python code/sampled_exec.py                  # executed samples for Certify-Join+S
+python code/run_pilot.py                     # RQ1-RQ3 (Certify-Join+S uses the executed samples)
+python code/synth_deep.py                    # RQ3, deep shared-key chains
 python code/calib_uniform.py                 # RQ4
 python code/maint.py tpch tpcds              # RQ5 (SF1)
 python code/paper_figs.py                    # tables and figures

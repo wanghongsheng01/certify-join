@@ -879,9 +879,13 @@ def certify_join(pool, W, budget, prior=True, inference=True, failfast=True, ada
             if S.spent + c > budget:
                 break
             if a in sampled and S.status(a) is None:
-                st = P.A[a]
-                rate = st["orphans"] / max(1, st["nonnull"])
-                hit = rnd.random() < 1 - (1 - rate) ** m_samp
+                ex = getattr(P, "exec_hits", None)
+                if ex and a in ex:  # outcome of a sample executed on the database (sampled_exec.py)
+                    hit = ex[a][seed % len(ex[a])]
+                else:
+                    st = P.A[a]
+                    rate = st["orphans"] / max(1, st["nonnull"])
+                    hit = rnd.random() < 1 - (1 - rate) ** m_samp
                 if cost_model == "scan":
                     S.scan({sampled[a][3]})
                     S.spent += m_samp
