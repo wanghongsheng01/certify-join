@@ -85,7 +85,7 @@ def table_data():
     g = D.groupby("family").agg(inst=("inst", "count"), tables=("tables", "sum"), rows=("rows", "sum"),
                                 cand=("cand", "sum"), unsafe=("unsafe", "sum"), U=("U_atoms", "sum"),
                                 q=("queries", "sum"), ans=("answerable", "sum"))
-    L = [r"\begin{table}[t]", r"\centering", r"\caption{Instances. Rows in millions; candidates proposed by one generator for all instances; unsafe = key or inclusion atom false.}",
+    L = [r"\begin{table}[t]", r"\centering", r"\caption{Most candidate edges are unsafe in every family (key or inclusion atom false). Rows in millions; one generator proposes the candidates of all instances.}",
          r"\label{tab:data}", r"\small", r"\setlength{\tabcolsep}{3.2pt}", r"\begin{tabular}{@{}lrrrrrrr@{}}", r"\toprule",
          r"Family & Inst. & Tables & Rows & Cand. & Unsafe & Queries & Answ. \\", r"\midrule"]
     for f in fams_present(D):
@@ -121,7 +121,7 @@ def table_main(d):
     def sx(v):
         return "--" if v is None or pd.isna(v) else f"{v:.2f}"
     L = [r"\begin{table*}[t]", r"\centering",
-         r"\caption{Deciding the whole workload, and coverage at a 5\% budget. Rows: share of the rows read by per-edge verification of every candidate (atom cost model). Seconds: live planning time (minimum of 3 runs) plus the measured time of each exact SQL probe the method issues. KeyFirst: per-edge verification that skips the inclusion check of edges with a false key; WL-Full: KeyFirst restricted to edges on workload paths of at most 3 hops. CJ = \sys, CJ+S = sampled inclusion. SF10 rows use the SF1 workload. In each group, the best value of a row is in bold and the second best underlined (OPT, which knows every atom's truth, is not ranked); Best/2nd counts the rows.}",
+         r"\caption{To decide the workload, CJ+S reads the fewest rows and CJ is the fastest in every setting; at a 5\% budget CJ+S covers the most queries. CJ: \sys; CJ+S: \sysS. Best in bold, second underlined (OPT unranked).}",
          r"\label{tab:main}", r"\small", r"\setlength{\tabcolsep}{3.5pt}", r"\begin{tabular}{@{}lrrrrrrrrrrrrr@{}}", r"\toprule",
          r" & \multicolumn{4}{c}{Rows to decide (\%)} & \multicolumn{4}{c}{Seconds to decide} & \multicolumn{5}{c}{Coverage at 5\% budget (\%)} \\ \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-14}",
          r"Family & KeyFirst & WL-Full & CJ & CJ+S & Full & KeyFirst & WL-Full & CJ & Full & KeyFirst & CJ & CJ+S & OPT \\", r"\midrule"]
@@ -171,7 +171,7 @@ def table_fcr(d, z):
     cj = pooled(a, ["family", "method"])
     fs = fams_present(d)
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Cardinality false-certification rate (\%): certified queries whose tree fans out or mis-assigns rows, pooled per family (\sys: all budgets). Auto-BI and HoPF read every candidate column; SJI reads statistics and samples; DDL, LLM judges and CardEst read no data. Per family, the lowest rate is in bold and the second lowest underlined (ties share the mark); B/2 counts a method's best and second-best families.}",
+         r"\caption{Only \sys and HoPF, which profiles every candidate column, never certify an unsafe tree. Cardinality false-certification rate (\%), pooled per family; lowest in bold, second underlined; B/2 counts a method's best and second-best families.}",
          r"\label{tab:fcr}", r"\small", r"\setlength{\tabcolsep}{1.3pt}", r"\begin{tabular}{@{}l" + "r" * len(fs) + "r@{}}", r"\toprule",
          "Method & " + " & ".join(SHORT[f] for f in fs) + r" & B/2 \\", r"\midrule"]
     rows = []
@@ -226,7 +226,7 @@ def table_maint():
                                        exp_trust=("exp_trust", "mean"), mism=("mism", "sum"))
     lab = {"_sf1": "SF1", "_sf10vol": "SF10, same $\\Delta$", "_sf10prop": "SF10, prop.\\ $\\Delta$"}
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Maintenance per run (means over seeds). Rows: incremental / full re-verification. Time: wall-clock seconds summed over the batches (SF1: 30 batches, mean of 3 seeds; SF10: 10 batches). Same $\Delta$: the change volume per batch of SF1; prop.\ $\Delta$: batches proportional to the table sizes. The faster of the two methods is in bold.}",
+         r"\caption{Incremental maintenance is faster than full re-verification in every setting and reads at most 0.04\% of its rows. Time: seconds summed over the batches; same/prop.\ $\Delta$: batch size fixed or proportional to the data; faster in bold.}",
          r"\label{tab:maint}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}llrrrr@{}}", r"\toprule",
          r"Inst. & Setting & Rows (\%) & Full (s) & Incr.\ (s) & Speedup \\", r"\midrule"]
     g = g.reindex(sorted(g.index, key=lambda k: (k[0] != "tpch", ["_sf1", "_sf10vol", "_sf10prop"].index(k[1]))))
@@ -280,44 +280,95 @@ def fig_coverage(d):
 
 
 def fig1(d, z):
-    """Unsafe certified trees per family: one bar per baseline (the five LLM judges as one bar, median with min-max
-    whisker), Certify-Join as highlighted markers at its value (0 everywhere)."""
+    """Unsafe certified trees per family, one panel per family with its own y-scale (small multiples): one bar per
+    baseline (the five LLM judges as one bar, median with min-max whisker), Certify-Join as a highlighted marker at its
+    value (0 everywhere)."""
+    import math
     q = pooled(z, ["family", "method"])
     a = d[(d.cost_model == "atom") & (d.budget != "inf")]
     cj = pooled(a, ["family", "method"])
     fs = [f for f in ["BIRD (11 DBs)", "JOB/IMDB", "TPC-H dirty", "TPC-DS dirty"] if f in set(d.family)]
     judges = [m for m in ["LLM-judge:gpt", "LLM-judge:claude", "LLM-judge:ds-flash", "LLM-judge:glm", "LLM-judge:kimi"]
               if m in set(z.method)]
-    groups = [("DDL", ["DDL-declared"]), (f"LLM judges ({len(judges)})", judges), ("CardEst", ["CardEst(HLL stats)"]),
+    groups = [("DDL", ["DDL-declared"]), ("LLM", judges), ("CardEst", ["CardEst(HLL stats)"]),
               ("Auto-BI", ["Auto-BI(k-MCA, reimpl.)"]), ("SJI", ["SJI(2603.04176)"]), ("HoPF", ["HoPF(reimpl.)"])]
     cols = ["#0072B2", "#56B4E9", "#009E73", "#CC79A7", "#999999", "#000000"]
-    fig, ax = plt.subplots(figsize=(3.4, 1.75))
-    nb = len(groups) + 1
-    w = 0.8 / nb
-    for i, (lab, ms) in enumerate(groups):
-        ys, lo, hi = [], [], []
-        for f in fs:
+    fig, axs = plt.subplots(2, 2, figsize=(3.4, 2.35), sharex=True, gridspec_kw=dict(hspace=0.35, wspace=0.28))
+    for ax, f in zip(axs.flat, fs):
+        top = 0
+        for i, (lab, ms) in enumerate(groups):
             v = sorted(100 * q.loc[(f, m)].fcr_card for m in ms if (f, m) in q.index)
             med = v[len(v) // 2] if v else 0
-            ys.append(med); lo.append(med - (v[0] if v else 0)); hi.append((v[-1] if v else 0) - med)
-        xs = [j + (i - (nb - 1) / 2) * w for j in range(len(fs))]
-        ax.bar(xs, ys, width=w * 0.9, color=cols[i], label=lab,
-               yerr=[lo, hi] if len(ms) > 1 else None, error_kw=dict(lw=0.6, capsize=1.2, ecolor="#333333"))
-        for x, y in zip(xs, ys):  # a zero-height bar stays visible as a short tick on the axis
-            if y == 0:
-                ax.plot([x - w * 0.4, x + w * 0.4], [0.6, 0.6], color=cols[i], lw=1.6, solid_capstyle="butt")
-    xs = [j + (nb - 1 - (nb - 1) / 2) * w for j in range(len(fs))]
-    ys = [100 * cj.loc[(f, "CertifyJoin")].fcr_card for f in fs]
-    ax.scatter(xs, [y + 1.5 for y in ys], marker="v", s=14, color=OURS["CertifyJoin"], zorder=4, label="Certify-Join (0)")
-    for x, y in zip(xs, ys):
-        ax.text(x, y + 5, f"{y:.0f}", ha="center", va="bottom", fontsize=6.5, color="#000000", fontweight="bold")
-    ax.set_xticks(range(len(fs))); ax.set_xticklabels([SHORT[f].replace("$^d$", " dirty") for f in fs])
-    ax.set_ylabel("Unsafe certified trees (%)")
-    ax.set_ylim(0, 100)
-    ax.grid(axis="y", lw=0.3, color="#dddddd"); ax.set_axisbelow(True)
-    ax.legend(ncol=4, frameon=False, fontsize=6.5, loc="lower center", bbox_to_anchor=(0.5, 1.0), handlelength=1.0,
-              columnspacing=0.8)
+            top = max(top, v[-1] if v else 0)
+            ax.bar(i, med, width=0.75, color=cols[i],
+                   yerr=[[med - v[0]], [v[-1] - med]] if len(v) > 1 else None,
+                   error_kw=dict(lw=0.6, capsize=1.2, ecolor="#333333"))
+        ymax = 5 * math.ceil(1.18 * top / 5)
+        for i, (lab, ms) in enumerate(groups):  # a zero-height bar stays visible as a short tick on the axis
+            v = [100 * q.loc[(f, m)].fcr_card for m in ms if (f, m) in q.index]
+            if v and max(v) == 0:
+                ax.plot([i - 0.35, i + 0.35], [0.012 * ymax] * 2, color=cols[i], lw=1.6, solid_capstyle="butt")
+        y = 100 * cj.loc[(f, "CertifyJoin")].fcr_card
+        k = len(groups)
+        ax.scatter([k], [y + 0.03 * ymax], marker="v", s=14, color=OURS["CertifyJoin"], zorder=4)
+        ax.text(k, y + 0.09 * ymax, f"{y:.0f}", ha="center", va="bottom", fontsize=6.5, color="#000000", fontweight="bold")
+        ax.set_ylim(0, ymax)
+        ax.set_title(SHORT[f].replace("$^d$", " dirty"), fontsize=8, pad=2)
+        ax.grid(axis="y", lw=0.3, color="#dddddd"); ax.set_axisbelow(True)
+        ax.tick_params(axis="y", labelsize=7)
+    labels = [g[0] for g in groups] + ["Certify-Join"]
+    for ax in axs[1]:
+        ax.set_xticks(range(len(labels)))
+        ax.set_xticklabels(labels, rotation=90, fontsize=6.5)
+        ax.get_xticklabels()[-1].set_fontweight("bold")
+    fig.text(0.0, 0.55, "Unsafe certified trees (%)", rotation=90, va="center", ha="left", fontsize=8)
+    fig.patch.set_visible(False)  # no page-sized white patch behind the four panels
     fig.savefig(os.path.join(FIG, "fig1.pdf"), bbox_inches="tight")
+
+def geo_delta(base, var):
+    """Geometric mean of var/base over the rows, printed as a signed percentage change."""
+    import math
+    r = [v / b for b, v in zip(base, var) if b > 0 and v > 0]
+    g = math.exp(sum(math.log(x) for x in r) / len(r)) - 1
+    return ("+" if g >= 0 else "$-$") + f"{abs(100 * g):.1f}"
+
+
+def table_abl():
+    """RQ3 ablation: cost to decide the workload when the prior is replaced (public families, results/prior_vendor.csv)
+    or when the inference rules / fail-first order are removed (synthetic subtype hierarchies, results/synth_deep.csv)."""
+    p = pd.read_csv(os.path.join(R, "prior_vendor.csv"))
+    p["family"] = p["inst"].map(fam)
+    p["budget"] = p["budget"].astype(str)
+    gp = pooled(p[p.budget == "inf"], ["family", "prior"])["cost_frac"]
+    s = pd.read_csv(os.path.join(R, "synth_deep.csv"))
+    s["budget"] = s["budget"].astype(str)
+    gs = pooled(s[s.budget == "inf"], ["depth", "method"])["cost_frac"]
+    L = [r"\begin{table}[t]", r"\centering",
+         r"\caption{Replacing or removing a component never breaks a certificate but changes the cost to decide the workload "
+         r"(\% of per-edge verification). Per row, lowest in bold, second underlined; $\Delta$: geometric-mean change relative to the first column.}",
+         r"\label{tab:abl}", r"\small", r"\setlength{\tabcolsep}{3.4pt}", r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+         r"\multicolumn{6}{@{}l}{\emph{(a) Prior of \sys}} \\", r"\midrule",
+         r"Family & DeepSeek & GPT & Claude & Kimi & GLM \\", r"\midrule"]
+    pri = ["ds-flash", "gpt", "claude", "kimi", "glm"]
+    cols = {k: [] for k in pri}
+    for f in fams_present(load_main()):
+        vals = [f"{100 * gp.loc[(f, k)]:.1f}" for k in pri]
+        for k, v in zip(pri, vals):
+            cols[k].append(float(v))
+        L.append(f"{SHORT[f]} & " + " & ".join(mark(vals, lower=True)[0]) + r" \\")
+    L += [r"\midrule", r"$\Delta$ (geo.\ mean) & -- & " + " & ".join(geo_delta(cols["ds-flash"], cols[k]) for k in pri[1:]) + r" \\",
+          r"\midrule", r"\multicolumn{6}{@{}l}{\emph{(b) Synthetic hierarchies}} \\", r"\midrule",
+          r"Depth & \sys & $-$Rules & $-$Order & $-$Both & \\", r"\midrule"]
+    var = ["CertifyJoin", "CJ-noInfer", "CJ-noFailFast", "CJ-noInfer-noFailFast"]
+    cols = {k: [] for k in var}
+    for dep in sorted(set(s.depth)):
+        vals = [f"{100 * gs.loc[(dep, k)]:.1f}" for k in var]
+        for k, v in zip(var, vals):
+            cols[k].append(float(v))
+        L.append(f"{dep} & " + " & ".join(mark(vals, lower=True)[0]) + r" & \\")
+    L += [r"\midrule", r"$\Delta$ (geo.\ mean) & -- & " + " & ".join(geo_delta(cols["CertifyJoin"], cols[k]) for k in var[1:]) + r" & \\",
+          r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+    open(os.path.join(TAB, "abl.tex"), "w").write("\n".join(L) + "\n")
 
 
 def table_prod():
@@ -332,13 +383,14 @@ def table_prod():
             (r"\sysS", X["cjs_live"]["hours"], f"{100 * X['cjs']['coverage']:.1f}")]
     hrs, _ = mark([f"{h:.2f}" for _, h, _ in meth], lower=True)
     shr, _ = mark([f"{100 * h / full:.1f}" for _, h, _ in meth], lower=True)
+    cvs, _ = mark([c for _, _, c in meth], lower=False)
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Deciding a workload on the production ERP database (36 tables, 327.6M rows, 909 candidate edges; "
-         f"{X['queries']} queries, {X['answerable']} answerable). " + r"\sys and \sysS need the fewest database hours. "
-         r"Coverage: answerable queries certified. Fewest hours in bold, second fewest underlined.}",
+         r"\caption{\sysS and \sys are the cheapest methods on the production ERP database (36 tables, 327.6M rows, "
+         f"909 candidate edges; {X['queries']} queries, {X['answerable']} answerable). " +
+         r"Coverage: answerable queries certified; best in bold, second underlined.}",
          r"\label{tab:prod}", r"\small", r"\setlength{\tabcolsep}{4pt}", r"\begin{tabular}{@{}lrrr@{}}", r"\toprule",
          r"Method & DB hours & \% of per-edge & Cov.\ (\%) \\", r"\midrule"]
-    for (lab, _, cov), h, sh in zip(meth, hrs, shr):
+    for (lab, _, _), h, sh, cov in zip(meth, hrs, shr, cvs):
         L.append(f"{lab} & {h} & {sh} & {cov} \\\\")
     L += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     open(os.path.join(TAB, "prod.tex"), "w").write("\n".join(L) + "\n")
@@ -352,7 +404,7 @@ def table_scale():
                                              wall=("wall_s", "mean"), it=("iterations", "mean"),
                                              probes=("probes", "mean"), cov=("coverage", "mean")).reset_index()
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Planning time of \sys on synthetic schemas (mean of 2 seeds; probes simulated from stored truths, so the time is pure planning). Decide: unbounded budget; 5\%: budget of 5\% of per-edge verification.}",
+         r"\caption{Planning stays below 0.1\,s per probe up to 10,000 tables. Planning time of \sys on synthetic schemas, probes simulated from stored truths (mean of 2 seeds). Decide: unbounded budget; 5\%: budget of 5\% of per-edge verification.}",
          r"\label{tab:scale}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}rrrrrrr@{}}", r"\toprule",
          r"Tables & Edges & Queries & Decide (s) & ms/probe & 5\% (s) & Cov.\ 5\% \\", r"\midrule"]
     for n in sorted(g.n_tables.unique()):
@@ -367,5 +419,5 @@ if __name__ == "__main__":
     os.makedirs(FIG, exist_ok=True); os.makedirs(TAB, exist_ok=True)
     d = load_main()
     z = load_zero()
-    table_data(); table_main(d); table_fcr(d, z); table_maint(); table_prod(); table_scale(); fig_coverage(d); fig1(d, z)
+    table_data(); table_main(d); table_fcr(d, z); table_maint(); table_prod(); table_scale(); table_abl(); fig_coverage(d); fig1(d, z)
     print("ok")

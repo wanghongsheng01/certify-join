@@ -1,6 +1,6 @@
 \begin{table}[t]
 \centering
-\caption{Deciding a workload on the production ERP database (36 tables, 327.6M rows, 909 candidate edges; 130 queries, 105 answerable). \sys and \sysS need the fewest database hours. Coverage: answerable queries certified. Fewest hours in bold, second fewest underlined.}
+\caption{\sysS and \sys are the cheapest methods on the production ERP database (36 tables, 327.6M rows, 909 candidate edges; 130 queries, 105 answerable). Coverage: answerable queries certified; best in bold, second underlined.}
 \label{tab:prod}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -8,11 +8,11 @@
 \toprule
 Method & DB hours & \% of per-edge & Cov.\ (\%) \\
 \midrule
-Per-edge verification & 25.70 & 100.0 & 100.0 \\
-KeyFirst & 3.01 & 11.7 & 100.0 \\
-WL-Full & 2.48 & 9.7 & 100.0 \\
-\sys & \underline{1.31} & \underline{5.1} & 100.0 \\
-\sysS & \textbf{1.12} & \textbf{4.3} & 99.0 \\
+Per-edge verification & 25.70 & 100.0 & \textbf{100.0} \\
+KeyFirst & 3.01 & 11.7 & \textbf{100.0} \\
+WL-Full & 2.48 & 9.7 & \textbf{100.0} \\
+\sys & \underline{1.31} & \underline{5.1} & \textbf{100.0} \\
+\sysS & \textbf{1.12} & \textbf{4.3} & \underline{99.0} \\
 \bottomrule
 \end{tabular}
 \end{table}

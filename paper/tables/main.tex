@@ -1,6 +1,6 @@
 \begin{table*}[t]
 \centering
-\caption{Deciding the whole workload, and coverage at a 5\% budget. Rows: share of the rows read by per-edge verification of every candidate (atom cost model). Seconds: live planning time (minimum of 3 runs) plus the measured time of each exact SQL probe the method issues. KeyFirst: per-edge verification that skips the inclusion check of edges with a false key; WL-Full: KeyFirst restricted to edges on workload paths of at most 3 hops. CJ = \sys, CJ+S = sampled inclusion. SF10 rows use the SF1 workload. In each group, the best value of a row is in bold and the second best underlined (OPT, which knows every atom's truth, is not ranked); Best/2nd counts the rows.}
+\caption{To decide the workload, CJ+S reads the fewest rows and CJ is the fastest in every setting; at a 5\% budget CJ+S covers the most queries. CJ: \sys; CJ+S: \sysS. Best in bold, second underlined (OPT unranked).}
 \label{tab:main}
 \small
 \setlength{\tabcolsep}{3.5pt}

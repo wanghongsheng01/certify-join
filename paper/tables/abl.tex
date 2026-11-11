@@ -1,0 +1,35 @@
+\begin{table}[t]
+\centering
+\caption{Replacing or removing a component never breaks a certificate but changes the cost to decide the workload (\% of per-edge verification). Per row, lowest in bold, second underlined; $\Delta$: geometric-mean change relative to the first column.}
+\label{tab:abl}
+\small
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\multicolumn{6}{@{}l}{\emph{(a) Prior of \sys}} \\
+\midrule
+Family & DeepSeek & GPT & Claude & Kimi & GLM \\
+\midrule
+TPC-H & \underline{23.6} & \underline{23.6} & \underline{23.6} & \textbf{18.2} & \underline{23.6} \\
+TPC-H$^d$ & \underline{19.2} & \underline{19.2} & \underline{19.2} & \textbf{13.7} & \underline{19.2} \\
+TPC-DS & 14.6 & \textbf{9.8} & \underline{10.2} & 20.4 & 19.8 \\
+TPC-DS$^d$ & 12.8 & \textbf{8.1} & \underline{8.5} & 18.5 & 18.0 \\
+JOB & 18.0 & \textbf{9.7} & \textbf{9.7} & \underline{11.7} & 15.2 \\
+BIRD & \underline{16.7} & \underline{16.7} & \textbf{16.4} & 19.7 & 19.6 \\
+\midrule
+$\Delta$ (geo.\ mean) & -- & $-$21.8 & $-$20.9 & $-$2.6 & +11.2 \\
+\midrule
+\multicolumn{6}{@{}l}{\emph{(b) Synthetic hierarchies}} \\
+\midrule
+Depth & \sys & $-$Rules & $-$Order & $-$Both & \\
+\midrule
+1 & \textbf{57.3} & \textbf{57.3} & \textbf{57.3} & \textbf{57.3} & \\
+2 & \textbf{52.4} & \underline{54.8} & \textbf{52.4} & \underline{54.8} & \\
+3 & \textbf{50.4} & \underline{53.6} & \textbf{50.4} & \underline{53.6} & \\
+4 & \textbf{50.2} & 53.9 & \underline{50.5} & 53.9 & \\
+5 & \textbf{54.1} & \underline{59.5} & \textbf{54.1} & \underline{59.5} & \\
+\midrule
+$\Delta$ (geo.\ mean) & -- & +5.6 & +0.1 & +5.6 & \\
+\bottomrule
+\end{tabular}
+\end{table}
