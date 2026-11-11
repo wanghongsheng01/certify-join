@@ -121,7 +121,7 @@ def table_main(d):
     def sx(v):
         return "--" if v is None or pd.isna(v) else f"{v:.2f}"
     L = [r"\begin{table*}[t]", r"\centering",
-         r"\caption{To decide the workload, CJ+S reads the fewest rows and CJ is the fastest in every setting; at a 5\% budget CJ+S covers the most queries. CJ: \sys; CJ+S: \sysS. Best in bold, second underlined (OPT unranked).}",
+         r"\caption{To decide the workload, CJ+S reads the fewest rows and CJ is the fastest in every setting; at a 5\% budget CJ+S covers the most queries; OPT is not ranked.}",
          r"\label{tab:main}", r"\small", r"\setlength{\tabcolsep}{3.5pt}", r"\begin{tabular}{@{}lrrrrrrrrrrrrr@{}}", r"\toprule",
          r" & \multicolumn{4}{c}{Rows to decide (\%)} & \multicolumn{4}{c}{Seconds to decide} & \multicolumn{5}{c}{Coverage at 5\% budget (\%)} \\ \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-14}",
          r"Family & KeyFirst & WL-Full & CJ & CJ+S & Full & KeyFirst & WL-Full & CJ & Full & KeyFirst & CJ & CJ+S & OPT \\", r"\midrule"]
@@ -171,7 +171,7 @@ def table_fcr(d, z):
     cj = pooled(a, ["family", "method"])
     fs = fams_present(d)
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Only \sys and HoPF, which profiles every candidate column, never certify an unsafe tree. Cardinality false-certification rate (\%), pooled per family; lowest in bold, second underlined; B/2 counts a method's best and second-best families.}",
+         r"\caption{Only \sys and HoPF, which profiles all data, never certify an unsafe tree. Cardinality false-certification rate (\%), pooled per family; B/2: number of best and second-best families.}",
          r"\label{tab:fcr}", r"\small", r"\setlength{\tabcolsep}{1.3pt}", r"\begin{tabular}{@{}l" + "r" * len(fs) + "r@{}}", r"\toprule",
          "Method & " + " & ".join(SHORT[f] for f in fs) + r" & B/2 \\", r"\midrule"]
     rows = []
@@ -226,7 +226,7 @@ def table_maint():
                                        exp_trust=("exp_trust", "mean"), mism=("mism", "sum"))
     lab = {"_sf1": "SF1", "_sf10vol": "SF10, same $\\Delta$", "_sf10prop": "SF10, prop.\\ $\\Delta$"}
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Incremental maintenance is faster than full re-verification in every setting and reads at most 0.04\% of its rows. Time: seconds summed over the batches; same/prop.\ $\Delta$: batch size fixed or proportional to the data; faster in bold.}",
+         r"\caption{Incremental maintenance is faster than full re-verification in every setting and reads at most 0.04\% of its rows; times are summed over all batches.}",
          r"\label{tab:maint}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}llrrrr@{}}", r"\toprule",
          r"Inst. & Setting & Rows (\%) & Full (s) & Incr.\ (s) & Speedup \\", r"\midrule"]
     g = g.reindex(sorted(g.index, key=lambda k: (k[0] != "tpch", ["_sf1", "_sf10vol", "_sf10prop"].index(k[1]))))
@@ -345,7 +345,7 @@ def table_abl():
     gs = pooled(s[s.budget == "inf"], ["depth", "method"])["cost_frac"]
     L = [r"\begin{table}[t]", r"\centering",
          r"\caption{Replacing or removing a component never breaks a certificate but changes the cost to decide the workload "
-         r"(\% of per-edge verification). Per row, lowest in bold, second underlined; $\Delta$: geometric-mean change relative to the first column.}",
+         r"(\% of per-edge verification); $\Delta$: geometric-mean change relative to the first column.}",
          r"\label{tab:abl}", r"\small", r"\setlength{\tabcolsep}{3.4pt}", r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
          r"\multicolumn{6}{@{}l}{\emph{(a) Prior of \sys}} \\", r"\midrule",
          r"Family & DeepSeek & GPT & Claude & Kimi & GLM \\", r"\midrule"]
@@ -404,7 +404,7 @@ def table_scale():
                                              wall=("wall_s", "mean"), it=("iterations", "mean"),
                                              probes=("probes", "mean"), cov=("coverage", "mean")).reset_index()
     L = [r"\begin{table}[t]", r"\centering",
-         r"\caption{Planning stays below 0.1\,s per probe up to 10,000 tables. Planning time of \sys on synthetic schemas, probes simulated from stored truths (mean of 2 seeds). Decide: unbounded budget; 5\%: budget of 5\% of per-edge verification.}",
+         r"\caption{Planning stays below 0.1\,s per probe up to 10,000 tables (mean of 2 seeds). Decide: unbounded budget; 5\%: budget of 5\% of per-edge verification.}",
          r"\label{tab:scale}", r"\small", r"\setlength{\tabcolsep}{3pt}", r"\begin{tabular}{@{}rrrrrrr@{}}", r"\toprule",
          r"Tables & Edges & Queries & Decide (s) & ms/probe & 5\% (s) & Cov.\ 5\% \\", r"\midrule"]
     for n in sorted(g.n_tables.unique()):
